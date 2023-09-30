@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3170148ccmud" path="res://icon.svg" id="2_akd6o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggedu"]
-size = Vector2(126, 126)
+size = Vector2(128, 127)
 
 [node name="GroundItem" type="Node2D"]
 script = ExtResource("1_dmg5t")
@@ -15,4 +15,5 @@ texture = ExtResource("2_akd6o")
 [node name="ClickArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(1, 0.5)
 shape = SubResource("RectangleShape2D_ggedu")
