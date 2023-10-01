@@ -1,21 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://re6pwgpcvy4a"]
+[gd_scene load_steps=4 format=3 uid="uid://re6pwgpcvy4a"]
 
 [ext_resource type="Script" path="res://Scenes/Prefabs/GroundItem.gd" id="1_dmg5t"]
-[ext_resource type="Resource" uid="uid://m4r6kki4tgsn" path="res://Scripts/Item.tres" id="2_66mmk"]
-[ext_resource type="Texture2D" uid="uid://b3170148ccmud" path="res://Assets/Sprites/icon.svg" id="2_akd6o"]
+[ext_resource type="Texture2D" uid="uid://3xq5sk2ivqdo" path="res://Assets/Sprites/Placeholder/itemPlaceHolder.png" id="2_we1y3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggedu"]
-size = Vector2(128, 127)
+size = Vector2(32, 32)
 
 [node name="GroundItem" type="Node2D"]
 script = ExtResource("1_dmg5t")
-item = ExtResource("2_66mmk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_akd6o")
+texture = ExtResource("2_we1y3")
 
 [node name="ClickArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
-position = Vector2(1, 0.5)
 shape = SubResource("RectangleShape2D_ggedu")

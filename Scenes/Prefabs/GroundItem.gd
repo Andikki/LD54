@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var grid_pos: Vector2i
-@export var item: Resource
+@export var item: Item
 
 var tile_size = 32
 

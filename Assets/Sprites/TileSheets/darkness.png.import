@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvnisi2k2488r"
-path="res://.godot/imported/PlaceHolderGround.png-e71d59d13fc3dd9bbf09b88412d0ba6e.ctex"
+uid="uid://b2dufg838dxq4"
+path="res://.godot/imported/darkness.png-6fb35df1e577d5f67335f879e98c9e70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/PlaceHolderGround.png"
-dest_files=["res://.godot/imported/PlaceHolderGround.png-e71d59d13fc3dd9bbf09b88412d0ba6e.ctex"]
+source_file="res://Assets/Sprites/TileSheets/darkness.png"
+dest_files=["res://.godot/imported/darkness.png-6fb35df1e577d5f67335f879e98c9e70.ctex"]
 
 [params]
 
