@@ -1,22 +1,22 @@
 [gd_scene load_steps=8 format=3 uid="uid://cjuk4k2jlyhdr"]
 
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Items/LightSource.tscn" id="1_n4pqc"]
-[ext_resource type="Texture2D" uid="uid://cbrv7buhomowg" path="res://Assets/Sprites/campfire.png" id="2_gfere"]
+[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="1_n4pqc"]
+[ext_resource type="Texture2D" uid="uid://cbrv7buhomowg" path="res://Assets/Sprites/Item/campfire.png" id="2_l2jfq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6hw5p"]
-atlas = ExtResource("2_gfere")
+atlas = ExtResource("2_l2jfq")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xkvg1"]
-atlas = ExtResource("2_gfere")
+atlas = ExtResource("2_l2jfq")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_atde2"]
-atlas = ExtResource("2_gfere")
+atlas = ExtResource("2_l2jfq")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75r3l"]
-atlas = ExtResource("2_gfere")
+atlas = ExtResource("2_l2jfq")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hnnqv"]

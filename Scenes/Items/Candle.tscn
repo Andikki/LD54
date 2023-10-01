@@ -1,51 +1,57 @@
-[gd_scene load_steps=8 format=3 uid="uid://j2x5yulh3lcd"]
+[gd_scene load_steps=9 format=3 uid="uid://becmahlgtb03r"]
 
-[ext_resource type="Texture2D" uid="uid://bhnnxyf04v6pi" path="res://Assets/Sprites/candle.png" id="1_2eiv2"]
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Items/LightSource.tscn" id="1_6d278"]
+[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_4g85h"]
+[ext_resource type="Texture2D" uid="uid://bhnnxyf04v6pi" path="res://Assets/Sprites/Item/candle.png" id="2_dj773"]
+[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="3_if7fw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_suv8d"]
-atlas = ExtResource("1_2eiv2")
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgoja"]
+atlas = ExtResource("2_dj773")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gscln"]
-atlas = ExtResource("1_2eiv2")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd0qi"]
+atlas = ExtResource("2_dj773")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2jqk8"]
-atlas = ExtResource("1_2eiv2")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dolc0"]
+atlas = ExtResource("2_dj773")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_johrf"]
-atlas = ExtResource("1_2eiv2")
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d57l"]
+atlas = ExtResource("2_dj773")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_dif3h"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_t5uvj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_suv8d")
+"texture": SubResource("AtlasTexture_lgoja")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gscln")
+"texture": SubResource("AtlasTexture_cd0qi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2jqk8")
+"texture": SubResource("AtlasTexture_dolc0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_johrf")
+"texture": SubResource("AtlasTexture_4d57l")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="LightSource" instance=ExtResource("1_6d278")]
-LightMap = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)])
+[node name="Candle" instance=ExtResource("1_4g85h")]
+m_name = "Candle"
+sprite = ExtResource("2_dj773")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
-position = Vector2(1, -2)
+position = Vector2(1, -10)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_dif3h")
+sprite_frames = SubResource("SpriteFrames_t5uvj")
 autoplay = "default"
-frame = 3
-frame_progress = 0.626726
+
+[node name="LightSource" parent="." index="1" instance=ExtResource("3_if7fw")]
+LightMap = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
+
+[node name="GroundAnchor" parent="." index="3"]
+position = Vector2(0, -7)

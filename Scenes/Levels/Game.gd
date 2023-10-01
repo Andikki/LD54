@@ -4,7 +4,8 @@ signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
 
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $Player
-@onready var candle: Node2D = $Player/Candle
+@onready var candle: Node2D = $Player/HandItem/Candle
+@onready var candle_light: Node2D = $Player/HandItem/LightSource
 
 var light_group := "light"
 var darkness_layer := 1

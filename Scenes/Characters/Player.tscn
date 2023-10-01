@@ -1,7 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://d1l67iy6v3b13"]
+[gd_scene load_steps=28 format=3 uid="uid://vn1lwdxsimu3"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
-[ext_resource type="Texture2D" uid="uid://drqrfwb4q87cg" path="res://Assets/Sprites/sample-sprite-sheet.png" id="1_n0n07"]
+[ext_resource type="Texture2D" uid="uid://drqrfwb4q87cg" path="res://Assets/Sprites/TileSheets/sample-sprite-sheet.png" id="2_gycvd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
 radius = 4.0
@@ -232,7 +232,7 @@ script = ExtResource("1_27483")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-texture = ExtResource("1_n0n07")
+texture = ExtResource("2_gycvd")
 hframes = 8
 vframes = 8
 
@@ -252,3 +252,6 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Idle/blend_position = Vector2(0, 0.00355995)
 parameters/Walk/blend_position = Vector2(0, 0)
+
+[node name="ItemPivot" type="Node2D" parent="."]
+position = Vector2(-8, -12)
