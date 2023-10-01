@@ -33,7 +33,6 @@ script = ExtResource("3_s8dul")
 grid_pos = Vector2i(13, 8)
 
 [node name="Campfire" parent="TileMap/Items/GroundItem" instance=ExtResource("8_eewm8")]
-position = Vector2(590, 246)
 
 [node name="Player" parent="." instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
