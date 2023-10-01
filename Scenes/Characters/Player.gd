@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
+@onready var footsteps_player: AudioStreamPlayer2D = $FootstepsPlayer
 
 func _ready() -> void:
 	update_animation_parameters(starting_direction)
@@ -28,10 +29,12 @@ func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:
 		animation_tree["parameters/Walk/blend_position"] = move_direction
 		animation_tree["parameters/Idle/blend_position"] = move_direction
-	
+
 	if velocity == Vector2.ZERO:
 		animation_state_machine.travel("Idle")
 	else:
 		animation_state_machine.travel("Walk")
-		
-	
+
+func play_footsteps_audio() -> void:
+	footsteps_player.pitch_scale = randf_range(0.9, 1.1)
+	footsteps_player.play()
