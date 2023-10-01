@@ -4,6 +4,8 @@ extends Node2D
 @onready var main_menu_music: AudioStreamPlayer = $MainMenuMusic
 @onready var main_menu_button: Button = $MainMenuButton
 
+@export var game_scene: PackedScene
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var viewportWidth = get_viewport().size.x
@@ -17,4 +19,5 @@ func _ready():
 	main_menu_button.set_position(Vector2(1.75 * viewportWidth/2, 1.75 * viewportHeight/2))
 	
 func press_button():
-	queue_free()
+	get_tree().change_scene_to_packed(game_scene)
+	

@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://vn1lwdxsimu3"]
+[gd_scene load_steps=29 format=3 uid="uid://vn1lwdxsimu3"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
 [ext_resource type="Texture2D" uid="uid://drqrfwb4q87cg" path="res://Assets/Sprites/TileSheets/sample-sprite-sheet.png" id="2_gycvd"]
+[ext_resource type="AudioStream" uid="uid://dpr0ijcmb6jhl" path="res://Assets/Music/Foot3.mp3" id="3_hafey"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
 radius = 4.0
@@ -98,6 +99,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [32, 33, 34, 35, 37]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
+"args": [],
+"method": &"play_footsteps_audio"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_iuijn"]
 resource_name = "walk_left"
@@ -114,6 +132,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [56, 57, 58, 59, 60, 61]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
+"args": [],
+"method": &"play_footsteps_audio"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_djdmg"]
@@ -132,6 +167,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [48, 49, 50, 51, 52, 53]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
+"args": [],
+"method": &"play_footsteps_audio"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xn473"]
 resource_name = "walk_up"
@@ -148,6 +200,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [40, 41, 42, 43, 44, 45]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
+"args": [],
+"method": &"play_footsteps_audio"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p0ft3"]
@@ -255,3 +324,7 @@ parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="ItemPivot" type="Node2D" parent="."]
 position = Vector2(-8, -12)
+
+[node name="FootstepsPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hafey")
+volume_db = -20.0
