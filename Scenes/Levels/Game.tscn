@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=7 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://d1l67iy6v3b13" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/Darkness.tres" id="1_vl0n8"]
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://j2x5yulh3lcd" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
+[ext_resource type="PackedScene" uid="uid://cjuk4k2jlyhdr" path="res://Scenes/Items/Campfire.tscn" id="6_1o5g1"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
@@ -29,5 +30,8 @@ script = ExtResource("3_s8dul")
 position = Vector2(474, 314)
 
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
+
+[node name="Campfire" parent="." instance=ExtResource("6_1o5g1")]
+position = Vector2(602, 250)
 
 [connection signal="cells_lit_status_updated" from="." to="TileMap" method="_on_cells_lit_status_updated"]
