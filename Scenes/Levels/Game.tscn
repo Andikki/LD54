@@ -1,17 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=12 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/Darkness.tres" id="1_vl0n8"]
+[ext_resource type="Texture2D" uid="uid://cvnisi2k2488r" path="res://Assets/Sprites/TileSheets/PlaceHolderGround.png" id="2_yexvx"]
+[ext_resource type="Script" path="res://Scenes/Levels/SplashScreen.gd" id="3_rs5lt"]
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
-[ext_resource type="PackedScene" uid="uid://wh4drk7grmxt" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
+[ext_resource type="PackedScene" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="7_gaotd"]
-[ext_resource type="PackedScene" uid="uid://cacood6dw16b5" path="res://Scenes/Prefabs/HandItem.tscn" id="8_ay7ro"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/LightSource.tscn" id="7_gaotd"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/HandItem.tscn" id="8_ay7ro"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
+
+[node name="SplashScreen" type="Sprite2D" parent="."]
+texture = ExtResource("2_yexvx")
+script = ExtResource("3_rs5lt")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(10, 10)
