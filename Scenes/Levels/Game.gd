@@ -16,6 +16,9 @@ var player_tile_coords: Vector2i
 func _ready() -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	prepare_new_turn()
+	var main_menu_scene: Resource = preload("res://Scenes/Levels/SplashScreen.tscn")
+	var main_menu_instance: Node2D = main_menu_scene.instantiate()
+	add_child(main_menu_instance)
 
 func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)
