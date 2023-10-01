@@ -15,15 +15,14 @@ var player_tile_coords: Vector2i
 var light_sources: Array[LightSource]
 
 func _ready() -> void:
-	player_tile_coords = tile_map.local_to_map(player.position)
-	light_sources.append(candle)	
+	player_tile_coords = calculate_tile_coords(player)
+	light_sources.append(candle)
+	prepare_new_turn()
 
-
-func _process(_delta: float) -> void:
-	
+func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)
 	var previous_player_tile_coords = player_tile_coords
-	player_tile_coords = tile_map.local_to_map(player.position)
+	player_tile_coords = calculate_tile_coords(player)
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn()
 
@@ -38,6 +37,9 @@ func calculate_lit_tiles() -> void:
 			cells_lit_status[Vector2i(x_index, y_index)] = false
 
 	for light_source in light_sources:
-		var light_source_position = tile_map.local_to_map(light_source.global_position)
+		var light_source_coords = calculate_tile_coords(light_source)
 		for light_shift in light_source.LightMap:
-			cells_lit_status[light_source_position + light_shift] = true
+			cells_lit_status[light_source_coords + light_shift] = true
+
+func calculate_tile_coords(object: Node2D) -> Vector2i:
+	return tile_map.local_to_map(tile_map.to_local(object.global_position))
