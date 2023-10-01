@@ -4,8 +4,6 @@ signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
 
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $Player
-@onready var candle: Node2D = $Player/HandItem/Candle
-@onready var candle_light: Node2D = $Player/HandItem/LightSource
 
 var light_group := "light"
 var darkness_layer := 1
@@ -28,7 +26,7 @@ func _process(_delta: float) -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn()
-
+	
 func prepare_new_turn() -> void:
 	# TODO: remove extinguished light sources
 	calculate_lit_tiles()

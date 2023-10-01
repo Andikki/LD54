@@ -16,9 +16,5 @@ func _ready():
 	main_menu_button.connect("pressed", press_button)
 	main_menu_button.set_position(Vector2(1.75 * viewportWidth/2, 1.75 * viewportHeight/2))
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
 func press_button():
 	queue_free()

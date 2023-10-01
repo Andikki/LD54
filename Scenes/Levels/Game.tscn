@@ -1,13 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=8 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/Darkness.tres" id="1_vl0n8"]
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
-[ext_resource type="PackedScene" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
-[ext_resource type="PackedScene" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
+[ext_resource type="PackedScene" uid="uid://e84tugsrcow6" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
@@ -33,14 +32,11 @@ script = ExtResource("3_s8dul")
 [node name="GroundItem" parent="TileMap/Items" instance=ExtResource("6_wjiuj")]
 grid_pos = Vector2i(13, 8)
 
-[node name="PlaceHolder" parent="TileMap/Items/GroundItem" instance=ExtResource("6_441lj")]
+[node name="Campfire" parent="TileMap/Items/GroundItem" instance=ExtResource("8_eewm8")]
 
 [node name="Player" parent="." instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
 
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
-
-[node name="Campfire" parent="." instance=ExtResource("8_eewm8")]
-position = Vector2(602, 250)
 
 [connection signal="cells_lit_status_updated" from="." to="TileMap" method="_on_cells_lit_status_updated"]
