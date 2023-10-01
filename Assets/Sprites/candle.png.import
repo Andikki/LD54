@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2dufg838dxq4"
-path="res://.godot/imported/darkness.png-30ed5fad56ae86535e6929af2c668826.ctex"
+uid="uid://bhnnxyf04v6pi"
+path="res://.godot/imported/candle.png-4134c88e0eb7e81c0d5bcf30ec01b312.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/darkness.png"
-dest_files=["res://.godot/imported/darkness.png-30ed5fad56ae86535e6929af2c668826.ctex"]
+source_file="res://Assets/Sprites/candle.png"
+dest_files=["res://.godot/imported/candle.png-4134c88e0eb7e81c0d5bcf30ec01b312.ctex"]
 
 [params]
 
