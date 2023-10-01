@@ -4,7 +4,8 @@ signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
 
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $Player
-@onready var candle: Node2D = $Player/Candle
+@onready var candle: Node2D = $Player/HandItem/Candle
+@onready var candle_light: Node2D = $Player/HandItem/LightSource
 
 var darkness_layer := 1
 var top_left_tile_coords := Vector2i(-1, -1)
@@ -16,7 +17,7 @@ var light_sources: Array[LightSource]
 
 func _ready() -> void:
 	player_tile_coords = tile_map.local_to_map(player.position)
-	light_sources.append(candle)	
+	light_sources.append(candle_light)
 
 
 func _process(_delta: float) -> void:
