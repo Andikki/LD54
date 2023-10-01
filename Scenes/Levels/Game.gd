@@ -24,19 +24,6 @@ func _process(_delta: float) -> void:
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn()
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_hand_action"):
-		# TODO: redo how held items are located in a smarter way
-		var player_child_nodes = player.get_children()
-		if player_child_nodes.size() > 0:
-			var item = player_child_nodes[0] as Item
-			if item != null:
-				player.remove_child(item)
-				$Game.add_child(item)
-				item.location = item.Location.GROUND
-				
-			
-
 func prepare_new_turn() -> void:
 	# TODO: remove extinguished light sources
 	calculate_lit_tiles()

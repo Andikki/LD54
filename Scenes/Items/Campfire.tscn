@@ -1,48 +1,66 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjuk4k2jlyhdr"]
+[gd_scene load_steps=10 format=3 uid="uid://e84tugsrcow6"]
 
+[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_1k674"]
 [ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="1_n4pqc"]
 [ext_resource type="Texture2D" uid="uid://cbrv7buhomowg" path="res://Assets/Sprites/Item/campfire.png" id="2_l2jfq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6hw5p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr7fd"]
 atlas = ExtResource("2_l2jfq")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xkvg1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj1ie"]
 atlas = ExtResource("2_l2jfq")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_atde2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dih1a"]
 atlas = ExtResource("2_l2jfq")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_75r3l"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5olg"]
 atlas = ExtResource("2_l2jfq")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_hnnqv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qn1kh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6hw5p")
+"texture": SubResource("AtlasTexture_kr7fd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xkvg1")
+"texture": SubResource("AtlasTexture_bj1ie")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_atde2")
+"texture": SubResource("AtlasTexture_dih1a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_75r3l")
+"texture": SubResource("AtlasTexture_w5olg")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="LightSource" instance=ExtResource("1_n4pqc")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0picb"]
+size = Vector2(26, 22)
+
+[node name="Campfire" instance=ExtResource("1_1k674")]
+
+[node name="TileCentreAnchor" parent="." index="1"]
+position = Vector2(0, -6)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="0"]
+position = Vector2(-1, -8)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qn1kh")
+autoplay = "default"
+frame = 3
+
+[node name="LightSource" parent="." index="3" instance=ExtResource("1_n4pqc")]
 LightMap = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_hnnqv")
-autoplay = "default"
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+visible = false
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_0picb")

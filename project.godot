@@ -21,6 +21,11 @@ window/size/viewport_width=948
 window/size/viewport_height=533
 window/stretch/mode="canvas_items"
 
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
 [input]
 
 move_left={

@@ -4,7 +4,7 @@ extends Node2D
 enum Location {GROUND, HAND}
 
 @export var item_name: String
-@export var location: Location = Location.GROUND :
+@export var location: Location = Location.GROUND:
 	get:
 		return location
 	set(value): 

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
 [ext_resource type="PackedScene" uid="uid://wh4drk7grmxt" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
-[ext_resource type="PackedScene" uid="uid://cjuk4k2jlyhdr" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
+[ext_resource type="PackedScene" uid="uid://e84tugsrcow6" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
@@ -41,6 +41,6 @@ position = Vector2(474, 314)
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
 
 [node name="Campfire" parent="." instance=ExtResource("8_eewm8")]
-position = Vector2(602, 250)
+position = Vector2(600, 248)
 
 [connection signal="cells_lit_status_updated" from="." to="TileMap" method="_on_cells_lit_status_updated"]
