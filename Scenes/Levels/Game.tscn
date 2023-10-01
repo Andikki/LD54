@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=11 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
 [ext_resource type="Script" path="res://Scenes/Prefabs/Item.gd" id="5_b5pij"]
+[ext_resource type="PackedScene" uid="uid://wh4drk7grmxt" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
+[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="7_gaotd"]
+[ext_resource type="PackedScene" uid="uid://cacood6dw16b5" path="res://Scenes/Prefabs/HandItem.tscn" id="8_ay7ro"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
@@ -34,9 +37,16 @@ script = ExtResource("5_b5pij")
 m_name = ""
 sprite = null
 
+[node name="PlaceHolder" parent="TileMap/Items/GroundItem" instance=ExtResource("6_441lj")]
+
 [node name="Player" parent="." instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
 
-[node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
+[node name="HandItem" parent="Player" instance=ExtResource("8_ay7ro")]
+
+[node name="Candle" parent="Player/HandItem" instance=ExtResource("4_qt4uo")]
+
+[node name="LightSource" parent="Player/HandItem" instance=ExtResource("7_gaotd")]
+position = Vector2(-464, -304)
 
 [connection signal="cells_lit_status_updated" from="." to="TileMap" method="_on_cells_lit_status_updated"]
