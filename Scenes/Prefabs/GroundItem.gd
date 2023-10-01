@@ -7,3 +7,5 @@ var item: Item
 func _init(grid_position: Vector2i, item_type: Item):
 	grid_pos = grid_position
 	item = item_type
+	$Sprite2D.texture = item.sprite
+	
