@@ -1,8 +1,8 @@
-extends Resource
+extends Node2D
 
 class_name Item
 
-@export var name: String
+@export var m_name: String
 @export var sprite: Texture2D
 #@export var ingredient_in
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=7 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/Darkness.tres" id="1_vl0n8"]
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://j2x5yulh3lcd" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
-[ext_resource type="Resource" uid="uid://bwugukjjrq46x" path="res://Assets/ItemResources/Placeholder.tres" id="5_ontyv"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
 
 [node name="Game" type="Node2D"]
@@ -32,7 +31,10 @@ script = ExtResource("3_s8dul")
 [node name="GroundItem" parent="TileMap/Items" instance=ExtResource("6_wjiuj")]
 position = Vector2(401, 271)
 grid_pos = Vector2i(13, 8)
-item = ExtResource("5_ontyv")
+
+[node name="GroundItem2" parent="TileMap/Items" instance=ExtResource("6_wjiuj")]
+position = Vector2(474, 240)
+grid_pos = Vector2i(16, 7)
 
 [node name="Player" parent="." instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
