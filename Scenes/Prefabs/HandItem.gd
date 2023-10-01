@@ -1,13 +1,8 @@
 extends Node2D
 
-@export var grid_pos: Vector2i
-
 var item: Item
 var light_source: LightSource
 var is_light_source: bool
-
-var tile_size:int = 32
-
 
 func _ready() -> void:
 	item = null
@@ -23,6 +18,3 @@ func _ready() -> void:
 		$Sprite2D.texture = item.sprite
 	
 	is_light_source = light_source !=null
-	
-	#find position if item
-	position = grid_pos * tile_size - Vector2i(tile_size/2, tile_size/2)
