@@ -4,8 +4,6 @@ signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
 
 @onready var tile_map: TileMap = $TileMap
 @onready var player: CharacterBody2D = $Player
-@onready var candle: Node2D = $Player/HandItem/Candle
-@onready var candle_light: Node2D = $Player/HandItem/LightSource
 
 var light_group := "light"
 var darkness_layer := 1
@@ -25,6 +23,19 @@ func _process(_delta: float) -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_hand_action"):
+		# TODO: redo how held items are located in a smarter way
+		var player_child_nodes = player.get_children()
+		if player_child_nodes.size() > 0:
+			var item = player_child_nodes[0] as Item
+			if item != null:
+				player.remove_child(item)
+				$Game.add_child(item)
+				item.location = item.Location.GROUND
+				
+			
 
 func prepare_new_turn() -> void:
 	# TODO: remove extinguished light sources

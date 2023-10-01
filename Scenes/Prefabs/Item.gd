@@ -1,12 +1,22 @@
+class_name Item
 extends Node2D
 
-class_name Item
+enum Location {GROUND, HAND}
 
-@export var m_name: String
-@export var sprite: Texture2D
+@export var item_name: String
+@export var location: Location = Location.GROUND :
+	get:
+		return location
+	set(value): 
+		location = value
+		adjust_sprite_position()
 #@export var ingredient_in
 
-func _init(m_name: String = "", m_sprite: Texture2D = Texture2D.new()):
-	name = m_name
-	sprite = m_sprite
-
+func _init(m_item_name: String = ""):
+	item_name = m_item_name
+	
+func adjust_sprite_position() -> void:
+	if location == Location.GROUND:
+		$SpriteContainer.position = $TileCentreAnchor.position
+	elif  location == Location.HAND:
+		$SpriteContainer.position = $HandAnchor.position

@@ -5,6 +5,8 @@
 [node name="Item" type="Node2D"]
 script = ExtResource("1_xmlpm")
 
-[node name="HeldAnchor" type="Node2D" parent="."]
+[node name="HandAnchor" type="Node2D" parent="."]
 
-[node name="GroundAnchor" type="Node2D" parent="."]
+[node name="TileCentreAnchor" type="Node2D" parent="."]
+
+[node name="SpriteContainer" type="Node2D" parent="."]
