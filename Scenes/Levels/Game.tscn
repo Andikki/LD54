@@ -28,11 +28,15 @@ script = ExtResource("3_s8dul")
 
 [node name="Items" type="Node2D" parent="TileMap"]
 
-[node name="Campfire" parent="TileMap/Items" instance=ExtResource("8_eewm8")]
+[node name="Campfire" parent="TileMap/Items" node_paths=PackedStringArray("ground_tilemap", "player_node") instance=ExtResource("8_eewm8")]
+position = Vector2(432, 245)
+ground_tilemap = NodePath("../..")
+player_node = NodePath("../../../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
 
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
+location = 1
 
 [connection signal="cells_lit_status_updated" from="." to="TileMap" method="_on_cells_lit_status_updated"]
