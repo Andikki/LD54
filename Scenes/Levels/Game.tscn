@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=10 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/Darkness.tres" id="1_vl0n8"]
 [ext_resource type="Script" path="res://Scenes/Levels/GameTileMap.gd" id="3_s8dul"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
-[ext_resource type="Script" path="res://Scenes/Prefabs/Item.gd" id="5_b5pij"]
 [ext_resource type="PackedScene" uid="uid://wh4drk7grmxt" path="res://Scenes/Items/place_holder.tscn" id="6_441lj"]
 [ext_resource type="PackedScene" uid="uid://re6pwgpcvy4a" path="res://Scenes/Prefabs/GroundItem.tscn" id="6_wjiuj"]
 [ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="7_gaotd"]
@@ -33,9 +32,7 @@ script = ExtResource("3_s8dul")
 [node name="Items" type="Node2D" parent="TileMap"]
 
 [node name="GroundItem" parent="TileMap/Items" instance=ExtResource("6_wjiuj")]
-script = ExtResource("5_b5pij")
-m_name = ""
-sprite = null
+grid_pos = Vector2i(13, 8)
 
 [node name="PlaceHolder" parent="TileMap/Items/GroundItem" instance=ExtResource("6_441lj")]
 
