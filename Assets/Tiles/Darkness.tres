@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://0gky5q1udx3y"]
 
-[ext_resource type="Texture2D" uid="uid://b2dufg838dxq4" path="res://Assets/Sprites/darkness.png" id="1_i24c0"]
-[ext_resource type="Texture2D" uid="uid://cvnisi2k2488r" path="res://Assets/Sprites/PlaceHolderGround.png" id="2_tyslj"]
+[ext_resource type="Texture2D" uid="uid://b2dufg838dxq4" path="res://Assets/Sprites/TileSheets/darkness.png" id="1_j37pi"]
+[ext_resource type="Texture2D" uid="uid://cvnisi2k2488r" path="res://Assets/Sprites/TileSheets/PlaceHolderGround.png" id="2_yfk6o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8uare"]
-texture = ExtResource("1_i24c0")
+texture = ExtResource("1_j37pi")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -491,7 +491,7 @@ texture_region_size = Vector2i(32, 32)
 9:2/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g5xi7"]
-texture = ExtResource("2_tyslj")
+texture = ExtResource("2_yfk6o")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 1

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://wh4drk7grmxt"]
+
+[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_s4wsf"]
+[ext_resource type="Texture2D" uid="uid://3xq5sk2ivqdo" path="res://Assets/Sprites/Placeholder/itemPlaceHolder.png" id="2_24woc"]
+
+[node name="PlaceHolder" instance=ExtResource("1_s4wsf")]
+m_name = "Placeholder"
+sprite = ExtResource("2_24woc")
