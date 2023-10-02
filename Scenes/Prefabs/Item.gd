@@ -40,6 +40,7 @@ func _ready():
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
 		$SpriteContainer.position = $TileCentreAnchor.position
+		$SpriteContainer/StaticBody2D/CollisionShape2D.disabled = not has_collision
 		if ground_tilemap != null:
 			var current_tile_coord = ground_tilemap.local_to_map(self.position)
 			var tilemap_tile_size = ground_tilemap.tile_set.tile_size.x
@@ -50,6 +51,7 @@ func adjust_sprite_position() -> void:
 
 	elif  location == Location.HAND:
 		$SpriteContainer.position = $HandAnchor.position
+		$SpriteContainer/StaticBody2D/CollisionShape2D.disabled = true
 		if player_node != null:
 			global_position = player_node.global_position
 
