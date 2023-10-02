@@ -51,9 +51,12 @@ func _input(event):
 	if event.is_action_pressed("left_hand_action") and $Player.left_held_item != null:
 		var temp_dropping_pos = mouse_pos_item_drop_global_position()
 		var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
+		
+		var ground_items = $WorldTileMap/Items.get_children()
 	elif event.is_action_pressed("right_hand_action") and $Player.right_held_item != null:
 		var temp_dropping_pos = mouse_pos_item_drop_global_position()
 		var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
+		var ground_items = $WorldTileMap/Items.get_children()
 
 func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()

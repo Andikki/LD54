@@ -1,7 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://vn1lwdxsimu3"]
+[gd_scene load_steps=28 format=3 uid="uid://vn1lwdxsimu3"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/TileSheets/sample-sprite-sheet.png" id="2_gycvd"]
 [ext_resource type="AudioStream" uid="uid://dpr0ijcmb6jhl" path="res://Assets/Music/Foot3.mp3" id="3_hafey"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
@@ -301,7 +300,6 @@ script = ExtResource("1_27483")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-texture = ExtResource("2_gycvd")
 hframes = 8
 vframes = 8
 

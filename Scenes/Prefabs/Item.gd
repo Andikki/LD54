@@ -20,6 +20,7 @@ enum Location {GROUND, HAND}
 @export var player_node: Node2D
 @onready var collision_shape: CollisionShape2D = \
 		$SpriteContainer/StaticBody2D/CollisionShape2D/CollisionShape2D
+@onready var world_tile_coord = Vector2(-1,-1)
 
 signal pickup(event: InputEvent, item_node: Item)
 
@@ -50,11 +51,13 @@ func adjust_sprite_position() -> void:
 func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
 	location = Location.GROUND
 	position = tile_map.map_to_local(cell_coords)
+	world_tile_coord = cell_coords
 	self.reparent(tile_map)
 
 func take_in_hand(hand_node: Node2D) -> void:
 	location = Location.HAND
 	position = Vector2.ZERO
+	world_tile_coord = Vector2(-1,-1)
 	self.reparent(hand_node)
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
