@@ -18,7 +18,7 @@ enum Location {GROUND, HAND}
 @export var ground_tilemap: Node2D
 @export var player_node: Node2D
 
-signal pick_up(event: InputEvent, item_node: Item)
+signal pickup(event: InputEvent, item_node: Item)
 
 func _init(m_item_name: String = ""):
 	item_name = m_item_name
@@ -62,5 +62,5 @@ func _on_click_target_area_input_event(viewport, event, shape_idx):
 			event.is_action_pressed("right_hand_action"):
 		print("Test for item closeness to player")
 		if not player_node.is_connected("pick_up", player_node._on_pickup):
-			player_node.connect("pick_up", player_node._on_pickup)
-		pick_up.emit(event as InputEvent, self)
+			pickup.connect( player_node._on_pickup)
+		pickup.emit(event as InputEvent, self)

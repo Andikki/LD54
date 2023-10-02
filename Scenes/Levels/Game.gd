@@ -49,9 +49,9 @@ func _process(_delta: float) -> void:
 
 func _input(event):
 	if event.is_action_pressed("left_hand_action") and $Player.left_held_item != null:
-		pass
+		var mouse_dir = quick_mouse_maths_for_put_down_dir()
 	elif event.is_action_pressed("right_hand_action") and $Player.right_held_item != null:
-		pass
+		var mouse_dir = quick_mouse_maths_for_put_down_dir()
 
 func quick_mouse_maths_for_put_down_dir() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()

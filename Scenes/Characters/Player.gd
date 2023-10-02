@@ -36,16 +36,19 @@ func _on_pickup(event: InputEvent, item: Item) -> void:
 	#This code can only be ran if an item on the ground has been clicked
 	#  > on to be picked up.
 	# Called from a signal in Item
+	print("picking up: " + item.item_name)
 	if event.is_action_pressed("left_hand_action"):
 		if left_held_item == null:
 			item.reparent(left_hand_placeholder)
-			item.take_in_hand()
+			item.location = Item.Location.HAND
+			#item.take_in_hand()
 	elif event.is_action_pressed("right_hand_action"):
 		if right_held_item == null:
 			item.reparent(right_hand_placeholder)
-			item.take_in_hand()
+			item.location = Item.Location.HAND
+			#item.take_in_hand()
 	#only connect to one item's pickup signal at a time
-	disconnect("pick_up", self.pickup)
+	disconnect("pick_up", self._on_pickup)
 
 func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:
