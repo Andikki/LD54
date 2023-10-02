@@ -32,15 +32,18 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_pickup(event: InputEvent, item: Node2D) -> void:
+func _on_pickup(event: InputEvent, item: Item) -> void:
+	#This code can only be ran if an item on the ground has been clicked
+	#  >on to be picked up.
+	# Called from a signal in Item
 	if event.is_action_pressed("left_hand_action"):
 		if left_held_item == null:
-			#pick up left hand
-			pass
+			item.reparent(left_hand_placeholder)
+			item.take_in_hand()
 	elif event.is_action_pressed("right_hand_action"):
 		if right_held_item == null:
-			#pick up right hand
-			pass
+			item.reparent(right_hand_placeholder)
+			item.take_in_hand()
 	disconnect("pick_up", self.pickup) 
 
 func update_animation_parameters(move_direction: Vector2) -> void:
