@@ -27,4 +27,5 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTargetArea"]
 shape = SubResource("RectangleShape2D_b78f5")
 
-[connection signal="input_event" from="ClickTargetArea" to="." method="_on_click_target_area_input_event"]
+[connection signal="mouse_entered" from="ClickTargetArea" to="." method="_on_click_target_area_mouse_entered"]
+[connection signal="mouse_exited" from="ClickTargetArea" to="." method="_on_click_target_area_mouse_exited"]
