@@ -29,6 +29,9 @@ signal pickup(event: InputEvent, item_node: Item)
 
 func _init(m_item_name: String = ""):
 	item_name = m_item_name
+	location = Location.GROUND
+	if game_node == null and get_tree() != null:
+		game_node = get_tree().get_root().find_child("Game")
 
 func _ready():
 	location = location
@@ -79,8 +82,12 @@ func take_in_hand(hand_node: Node2D) -> void:
 
 func _on_click_target_area_mouse_entered():
 	mouse_hovering = true
+	if game_node == null:
+		game_node = get_tree().get_root().find_child("Game")
 	game_node.cur_hovering_item = self
 
 func _on_click_target_area_mouse_exited():
 	mouse_hovering = false
+	if game_node == null:
+		game_node = get_tree().get_root().find_child("Game")
 	game_node.cur_hovering_item = null

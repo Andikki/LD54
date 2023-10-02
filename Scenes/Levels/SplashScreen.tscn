@@ -16,6 +16,7 @@ texture = ExtResource("2_xc3vv")
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0np5k")
+bus = &"Music"
 
 [node name="MainMenuButton" type="Button" parent="."]
 z_index = 250

@@ -113,5 +113,6 @@ icon_alignment = 1
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_3f0at")
 autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="ToTitleButton" to="." method="_on_to_title_button_pressed"]
