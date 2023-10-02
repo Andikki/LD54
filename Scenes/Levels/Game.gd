@@ -48,12 +48,15 @@ func _process(_delta: float) -> void:
 		prepare_new_turn(false)
 
 func _input(event):
-	if event.is_action_pressed("left_hand_action") and $Player.left_held_item != null:
-		drop_item($Player.left_hand_placeholder)
-	elif event.is_action_pressed("right_hand_action") and $Player.right_held_item != null:
-		drop_item($Player.right_hand_placeholder)
+	print(player.left_held_item)
+	if event.is_action_pressed("left_hand_action") and player.left_held_item != null:
+		print("leftclick")
+		drop_item(player.left_hand_placeholder, player.left_held_item)
+	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null:
+		print("rightclick")
+		drop_item(player.right_hand_placeholder, player.right_held_item)
 
-func drop_item(hand_container: Node2D):
+func drop_item(hand_container: Node2D, hand_item: Item):
 	var temp_dropping_pos = mouse_pos_item_drop_global_position()
 	var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
 	var ground_items = $WorldTileMap/Items.get_children()
@@ -65,6 +68,9 @@ func drop_item(hand_container: Node2D):
 		if g_item.world_tile_coord == dropping_cell:
 			swapped_item = g_item
 	
+	hand_item.drop_on_the_ground(tile_map, dropping_cell)
+	if swapped_item != null:
+		swapped_item.take_in_hand(hand_container)
 
 func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -97,15 +103,9 @@ func _on_pickup(event: InputEvent, item: Item) -> void:
 	print("picking up: " + item.item_name)
 	if event.is_action_pressed("left_hand_action"):
 		if player.left_held_item == null:
-			var item_cell = calculate_tile_coords(item)
-			item.reparent(player.left_hand_placeholder)
-			item.location = Item.Location.HAND
 			item.take_in_hand(player.left_hand_placeholder)
 	elif event.is_action_pressed("right_hand_action"):
 		if player.right_held_item == null:
-			var item_cell = calculate_tile_coords(item)
-			item.reparent(player.right_hand_placeholder)
-			item.location = Item.Location.HAND
 			item.take_in_hand(player.right_hand_placeholder)
 	#only connect to one item's pickup signal at a time
 	disconnect("pick_up", self._on_pickup)
