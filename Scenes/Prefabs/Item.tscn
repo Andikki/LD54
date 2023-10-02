@@ -16,9 +16,9 @@ position = Vector2(0, -8)
 
 [node name="SpriteContainer" type="Node2D" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="SpriteContainer"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteContainer/StaticBody2D"]
 shape = SubResource("RectangleShape2D_8emtm")
 disabled = true
 

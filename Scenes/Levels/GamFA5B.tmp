@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=8 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/Tiles/World.tres" id="2_myymc"]
 [ext_resource type="Script" path="res://Scenes/Levels/WorldTileMap.gd" id="3_s7xpy"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
-[ext_resource type="PackedScene" uid="uid://vb0xkbrn6mk" path="res://Scenes/Levels/Crafting.tscn" id="8_8mwef"]
 [ext_resource type="PackedScene" uid="uid://cjuk4k2jlyhdr" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
 [ext_resource type="AudioStream" uid="uid://bmhygmgf6ba44" path="res://Assets/Music/Music_1.mp3" id="8_qk2x0"]
 
@@ -32,6 +31,7 @@ script = ExtResource("3_s7xpy")
 
 [node name="Campfire" parent="WorldTileMap/Items" instance=ExtResource("8_eewm8")]
 position = Vector2(422, 235)
+location = 0
 
 [node name="Player" parent="." node_paths=PackedStringArray("left_held_item") instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
@@ -39,12 +39,10 @@ left_held_item = NodePath("Candle")
 
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
 location = 1
+has_collision = false
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_qk2x0")
 autoplay = true
 
-[node name="Crafting" parent="." instance=ExtResource("8_8mwef")]
-
-[connection signal="ingredients_for_crafting_updated" from="." to="Crafting" method="_on_ingredients_for_crafting_updated"]
 [connection signal="lit_cells_updated" from="." to="WorldTileMap" method="_on_lit_cells_updated"]

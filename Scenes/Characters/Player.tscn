@@ -311,8 +311,14 @@ parameters/Idle/blend_position = Vector2(0, 0.00355995)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="ItemPivot" type="Node2D" parent="."]
-position = Vector2(-8, -12)
+position = Vector2(-7, -12)
 
 [node name="FootstepsPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_hafey")
 volume_db = -20.0
+
+[node name="HandRPlaceholder" type="Node2D" parent="."]
+position = Vector2(7, -12)
+
+[node name="HandLPlaceholder" type="Node2D" parent="."]
+position = Vector2(-7, -12)
