@@ -29,6 +29,9 @@ signal pickup(event: InputEvent, item_node: Item)
 
 func _init(m_item_name: String = ""):
 	item_name = m_item_name
+	location = Location.GROUND
+	if game_node == null and get_tree() != null:
+		game_node = get_tree().get_root().find_child("Game")
 
 func _ready():
 	location = location

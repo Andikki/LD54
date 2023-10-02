@@ -172,6 +172,7 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 					var item_resource: Resource = spawning_items.pick_random()
 					var item: Item = await item_resource.instantiate()
 					add_child(item)
+					item.game_node = self
 					item.drop_on_the_ground(tile_map, cell_coords)
 
 func calculate_ingredients_for_crafting() -> void:
