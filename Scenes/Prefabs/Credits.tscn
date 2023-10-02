@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dhfbd6ixntrna"]
+
+[node name="BoxContainer" type="BoxContainer"]
+offset_right = 1.0
+offset_bottom = 115.0
+
+[node name="CreditsText" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Art Director: Sunday Carrot
+Music Director: Dani 
+Technical Director: Robin
+Senior Developer: Andi
+Party Clown: Rinta"
+fit_content = true

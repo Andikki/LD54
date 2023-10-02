@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://wk55rhmtfok4"]
+[gd_scene load_steps=10 format=3 uid="uid://wk55rhmtfok4"]
 
-[ext_resource type="Texture2D" uid="uid://dshp6sbrgkoyy" path="res://Assets/Images/SplashScreen.png" id="1_ri00q"]
+[ext_resource type="Texture2D" uid="uid://bmcvyv2rmop1j" path="res://Assets/Sprites/TileSheets/water-01.png" id="1_3inqu"]
+[ext_resource type="Script" path="res://Scenes/Levels/EndingEscape.gd" id="1_r2skl"]
+[ext_resource type="PackedScene" uid="uid://dhfbd6ixntrna" path="res://Scenes/Prefabs/Credits.tscn" id="2_1xv61"]
+[ext_resource type="Texture2D" uid="uid://c5tote57n2mwj" path="res://Assets/Sprites/Item/raft.png" id="2_35ukh"]
+[ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="3_mi85o"]
+[ext_resource type="Texture2D" uid="uid://3dy38rdre76h" path="res://Assets/Images/PinkButton.png" id="5_wrvbm"]
+[ext_resource type="AudioStream" uid="uid://wi3x3sjlmj7m" path="res://Assets/Music/SplashScreen_Insignificant_Delicacy.wav" id="7_3f0at"]
+
+[sub_resource type="Animation" id="Animation_6xhpu"]
+resource_name = "Swim"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerPivot/PlayerIllustration:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, -4), Vector2(6, -1), Vector2(4, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tif6a"]
+_data = {
+"Swim": SubResource("Animation_6xhpu")
+}
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_r2skl")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -17,9 +46,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ri00q")
+texture = ExtResource("1_3inqu")
+stretch_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="EndingText" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 20.0
@@ -30,3 +60,59 @@ text = "I have escaped the Darkness.
 That's good, right?
 There's nothing there that I'll miss..."
 fit_content = true
+
+[node name="Credits" parent="." instance=ExtResource("2_1xv61")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -150.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PlayerPivot" type="Node2D" parent="."]
+position = Vector2(304, 336)
+
+[node name="PlayerIllustration" type="Node2D" parent="PlayerPivot"]
+position = Vector2(3, -4)
+
+[node name="Raft" type="Sprite2D" parent="PlayerPivot/PlayerIllustration"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_35ukh")
+
+[node name="Player" type="Sprite2D" parent="PlayerPivot/PlayerIllustration"]
+position = Vector2(0, -64)
+scale = Vector2(4, 4)
+texture = ExtResource("3_mi85o")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Swim"
+libraries = {
+"": SubResource("AnimationLibrary_tif6a")
+}
+
+[node name="ToTitleButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "To title"
+icon = ExtResource("5_wrvbm")
+icon_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3f0at")
+autoplay = true
+
+[connection signal="pressed" from="ToTitleButton" to="." method="_on_to_title_button_pressed"]
