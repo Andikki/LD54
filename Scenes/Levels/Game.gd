@@ -32,7 +32,7 @@ func _ready() -> void:
 	var world_items = temp_world_tiles.get_node("Items").get_children()
 	var player_items = temp_player_node.get_children()
 	world_items.append_array(player_items)
-	if world_items.size > 0:
+	if world_items.size() > 0:
 		for m_item in world_items:
 			if m_item is Item:
 				m_item = m_item as Item
@@ -46,7 +46,30 @@ func _process(_delta: float) -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn(false)
+
+func _input(event):
+	if event.is_action_pressed("left_hand_action") and $Player.left_held_item != null:
+		pass
+	elif event.is_action_pressed("right_hand_action") and $Player.right_held_item != null:
+		pass
+
+func quick_mouse_maths_for_put_down_dir() -> Vector2:
+	var mouse_pos = get_viewport().get_mouse_position()
+	var mouse_dir = (mouse_pos - global_position).normalized()
 	
+	var direction_to_mouse = mouse_dir.dot(Vector2.UP)
+	
+	if direction_to_mouse > 0.5:
+		return Vector2.UP
+	elif direction_to_mouse < -0.5:
+		return Vector2.DOWN
+	else:
+		var horizontal_dir_test = mouse_dir.dot(Vector2.RIGHT)
+		if horizontal_dir_test > 0:
+			return Vector2.RIGHT
+		else:
+			return Vector2.LEFT
+
 func prepare_new_turn(is_first_turn: bool) -> void:
 	# TODO: remove extinguished light sources
 	var old_lit_cells = lit_cells.duplicate()

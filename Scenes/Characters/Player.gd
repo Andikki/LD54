@@ -34,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_pickup(event: InputEvent, item: Item) -> void:
 	#This code can only be ran if an item on the ground has been clicked
-	#  >on to be picked up.
+	#  > on to be picked up.
 	# Called from a signal in Item
 	if event.is_action_pressed("left_hand_action"):
 		if left_held_item == null:

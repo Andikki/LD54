@@ -26,9 +26,9 @@ func _init(m_item_name: String = ""):
 func _ready():
 	
 	if location == Location.GROUND and has_collision:
-		$StaticBody2D/CollisionShape2D.disabled = false
+		$SpriteContainer/StaticBody2D/CollisionShape2D.disabled = false
 	else:
-		$StaticBody2D/CollisionShape2D.disabled = true
+		$SpriteContainer/StaticBody2D/CollisionShape2D.disabled = true
 	
 	if player_node == null:
 		player_node = get_tree().get_root().find_child("Player")
@@ -36,6 +36,7 @@ func _ready():
 		ground_tilemap = get_tree().get_root().find_child("WorldTileMap")
 	
 	adjust_sprite_position()
+
 
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
