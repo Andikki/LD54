@@ -35,9 +35,9 @@ func _on_ingredients_for_crafting_updated(ingredients: Array[Item]) -> void:
 			log_count += 1
 		elif ingredient.item_name == "Rope":
 			rope_count += 1
-	if log_count >= 2: #fire = 2 wood			
-		craft_fire.text = "Craft Fire"
-		craft_fire.DRAW_NORMAL			
+	#if log_count >= 2: #fire = 2 wood			
+	#	craft_fire.text = "Craft Fire"
+	#	craft_fire.DRAW_NORMAL			
 	if grass_count >= 3: #rope = 3 grass
 		craft_rope.text = "Craft Rope"
 		craft_rope.DRAW_NORMAL			
@@ -51,7 +51,7 @@ func _process(delta):
 	
 func disable_all_buttons() -> void:
 	craft_fire.DRAW_DISABLED
-	craft_fire.text = "Cannot craft Fire"	
+	craft_fire.text = "Crafting Fire disabled"	
 	craft_rope.DRAW_DISABLED
 	craft_rope.text = "Cannot craft Rope"	
 	craft_raft.DRAW_DISABLED
