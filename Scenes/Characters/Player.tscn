@@ -328,3 +328,7 @@ position = Vector2(-8, -12)
 [node name="FootstepsPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_hafey")
 volume_db = -20.0
+
+[node name="HandRPlaceholder" type="Node2D" parent="."]
+
+[node name="HandLPlaceholder" type="Node2D" parent="."]

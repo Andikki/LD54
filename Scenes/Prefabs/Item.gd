@@ -18,6 +18,8 @@ enum Location {GROUND, HAND}
 @export var ground_tilemap: Node2D
 @export var player_node: Node2D
 
+signal pick_up(event: InputEvent, item_node: Item)
+
 func _init(m_item_name: String = ""):
 	item_name = m_item_name
 
@@ -27,6 +29,11 @@ func _ready():
 		$StaticBody2D/CollisionShape2D.disabled = false
 	else:
 		$StaticBody2D/CollisionShape2D.disabled = true
+	
+	if not (ground_tilemap is TileMap):
+		ground_tilemap = get_tree().get_root().find_child("WorldTileMap")
+	if not (player_node is CharacterBody2D):
+		player_node = get_tree().get_root().find_child("Player")
 	
 	adjust_sprite_position()
 
@@ -49,4 +56,6 @@ func adjust_sprite_position() -> void:
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action"):
-		print("Item clicked with name: " + item_name)
+		print("Test for item closeness to player")
+		player_node.connect("pick_up", player_node._on_pickup)
+		pick_up.emit(event as InputEvent, self)

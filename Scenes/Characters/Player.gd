@@ -25,6 +25,9 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
+func _on_pickup(event: InputEvent, item: Node2D) -> void:
+	disconnect("pick_up", self.pickup) 
+
 func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:
 		animation_tree["parameters/Walk/blend_position"] = move_direction
