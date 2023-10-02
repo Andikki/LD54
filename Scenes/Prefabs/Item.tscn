@@ -8,5 +8,6 @@ script = ExtResource("1_xmlpm")
 [node name="HandAnchor" type="Node2D" parent="."]
 
 [node name="TileCentreAnchor" type="Node2D" parent="."]
+position = Vector2(0, -8)
 
 [node name="SpriteContainer" type="Node2D" parent="."]

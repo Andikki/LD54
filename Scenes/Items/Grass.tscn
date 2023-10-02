@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc6mly5jt0g1n"]
+
+[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_tpijk"]
+[ext_resource type="Texture2D" uid="uid://crspb85gxlguf" path="res://Assets/Sprites/Item/grass.png" id="2_oi8sn"]
+
+[node name="Item" instance=ExtResource("1_tpijk")]
+
+[node name="TileCentreAnchor" parent="." index="1"]
+position = Vector2(0, -4)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("2_oi8sn")
