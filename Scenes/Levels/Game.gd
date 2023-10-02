@@ -65,9 +65,7 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 				if do_spawn:
 					var item_resource: Resource = spawning_items.pick_random()
 					var item: Item = item_resource.instantiate()
-					item.position = tile_map.map_to_local(cell_coords)
-					item.location = item.Location.GROUND
-					tile_map.add_child(item)
+					item.drop_on_the_ground(tile_map, cell_coords)
 
 func calculate_ingredients_for_crafting() -> void:
 	var all_items = get_tree().get_nodes_in_group("items")
