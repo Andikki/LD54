@@ -43,9 +43,6 @@ animations = [{
 [node name="Candle" instance=ExtResource("1_4g85h")]
 item_name = "Candle"
 
-[node name="TileCentreAnchor" parent="." index="1"]
-position = Vector2(0, -8)
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="0"]
 position = Vector2(1, -10)
 scale = Vector2(2, 2)
