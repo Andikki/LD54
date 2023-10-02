@@ -2,13 +2,20 @@ extends CharacterBody2D
 
 @export var move_speed := 100.0
 @export var starting_direction := Vector2.UP
+@export var left_held_item: Item = null
+@export var right_held_item: Item = null
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var footsteps_player: AudioStreamPlayer2D = $FootstepsPlayer
+@onready var left_hand_placeholder: Node2D = $HandLPlaceholder
+@onready var right_hand_placeholder: Node2D = $HandRPlaceholder
 
 func _ready() -> void:
 	update_animation_parameters(starting_direction)
+	
+	if left_held_item != null:
+		left_held_item.reparent(left_hand_placeholder)
 
 func _physics_process(_delta: float) -> void:
 	var input_direction := Vector2(
@@ -26,6 +33,14 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_pickup(event: InputEvent, item: Node2D) -> void:
+	if event.is_action_pressed("left_hand_action"):
+		if left_held_item == null:
+			#pick up left hand
+			pass
+	elif event.is_action_pressed("right_hand_action"):
+		if right_held_item == null:
+			#pick up right hand
+			pass
 	disconnect("pick_up", self.pickup) 
 
 func update_animation_parameters(move_direction: Vector2) -> void:

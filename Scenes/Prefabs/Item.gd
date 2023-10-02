@@ -55,7 +55,7 @@ func adjust_sprite_position() -> void:
 
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed("left_hand_action"):
+	if event.is_action_pressed("left_hand_action") or event.is_action_pressed("left_hand_action"):
 		print("Test for item closeness to player")
 		player_node.connect("pick_up", player_node._on_pickup)
 		pick_up.emit(event as InputEvent, self)
