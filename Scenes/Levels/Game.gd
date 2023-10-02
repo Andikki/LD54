@@ -60,9 +60,9 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 				var item_resource: Resource = spawning_items.pick_random()
 				var item: Item = item_resource.instantiate()
 				# TODO: add spawned item to the correct node?
-				item.position = tile_map.to_global(tile_map.map_to_local(cell_coords))
+				item.position = tile_map.map_to_local(cell_coords)
 				item.location = item.Location.GROUND
-				add_child(item)
+				tile_map.add_child(item)
 
 func calculate_tile_coords(object: Node2D) -> Vector2i:
 	return tile_map.local_to_map(tile_map.to_local(object.global_position))
