@@ -44,4 +44,4 @@ position = Vector2(474, 314)
 stream = ExtResource("8_qk2x0")
 autoplay = true
 
-[connection signal="cells_lit_status_updated" from="." to="WorldTileMap" method="_on_cells_lit_status_updated"]
+[connection signal="lit_cells_updated" from="." to="WorldTileMap" method="_on_lit_cells_updated"]

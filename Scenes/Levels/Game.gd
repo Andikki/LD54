@@ -1,14 +1,18 @@
 extends Node2D
 
-signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
+# Signals
+signal lit_cells_updated(new_lit_cells: Dictionary)
 
-@onready var tile_map: WorldTileMap = $WorldTileMap
-@onready var player: CharacterBody2D = $Player
-
+# Consts
 var light_group := "light"
 var darkness_layer := 1
 
-var cells_lit_status: Dictionary = {}
+# Node references
+@onready var tile_map: WorldTileMap = $WorldTileMap
+@onready var player: CharacterBody2D = $Player
+
+# Variables
+var lit_cells: Dictionary = {}
 var player_tile_coords: Vector2i
 
 func _ready() -> void:
@@ -25,21 +29,18 @@ func _process(_delta: float) -> void:
 	
 func prepare_new_turn() -> void:
 	# TODO: remove extinguished light sources
-	calculate_lit_tiles()
-	emit_signal("cells_lit_status_updated", cells_lit_status)
+	calculate_lit_cells()
 	
-func calculate_lit_tiles() -> void:
-	for x_index in range(tile_map.top_left_tile_coords.x, tile_map.bottom_right_tile_coords.x):
-		for y_index in range(tile_map.top_left_tile_coords.y, tile_map.bottom_right_tile_coords.y):
-			cells_lit_status[Vector2i(x_index, y_index)] = false
-
+func calculate_lit_cells() -> void:
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
-
+	
+	lit_cells.clear()
 	for light_source in light_sources:
 		if light_source is LightSource:
 			var light_source_coords = calculate_tile_coords(light_source)
 			for light_shift in light_source.LightMap:
-				cells_lit_status[light_source_coords + light_shift] = true
+				lit_cells[light_source_coords + light_shift] = true
+	emit_signal("lit_cells_updated", lit_cells)
 
 func calculate_tile_coords(object: Node2D) -> Vector2i:
 	return tile_map.local_to_map(tile_map.to_local(object.global_position))
