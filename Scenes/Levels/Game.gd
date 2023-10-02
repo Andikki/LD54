@@ -5,7 +5,6 @@ signal lit_cells_updated(new_lit_cells: Dictionary, old_lit_cells: Dictionary)
 
 # Consts
 var light_group := "light"
-var darkness_layer := 1
 var item_spawn_chance_in_turns := 30
 var spawning_items: Array[Resource] = [
 	preload("res://Scenes/Items/Grass.tscn"),
@@ -55,14 +54,15 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 	for cell_coords in new_lit_cells.keys():
 		var was_lit = old_lit_cells.has(cell_coords)
 		if not was_lit:
-			var do_spawn = randi() % item_spawn_chance_in_turns == 0
-			if do_spawn:
-				var item_resource: Resource = spawning_items.pick_random()
-				var item: Item = item_resource.instantiate()
-				# TODO: add spawned item to the correct node?
-				item.position = tile_map.map_to_local(cell_coords)
-				item.location = item.Location.GROUND
-				tile_map.add_child(item)
+			var tile_can_hold_items = tile_map.get_custom_data(tile_map.ground_layer, cell_coords, tile_map.custom_data_can_hold_items, false)
+			if tile_can_hold_items:
+				var do_spawn = randi() % item_spawn_chance_in_turns == 0
+				if do_spawn:
+					var item_resource: Resource = spawning_items.pick_random()
+					var item: Item = item_resource.instantiate()
+					item.position = tile_map.map_to_local(cell_coords)
+					item.location = item.Location.GROUND
+					tile_map.add_child(item)
 
 func calculate_tile_coords(object: Node2D) -> Vector2i:
 	return tile_map.local_to_map(tile_map.to_local(object.global_position))
