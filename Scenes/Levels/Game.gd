@@ -81,7 +81,7 @@ func mouse_pos_item_drop_global_position() -> Vector2:
 
 func _on_pickup(event: InputEvent, item: Item) -> void:
 	#This code can only be ran if an item on the ground has been clicked
-	#  > on to be picked up.
+	#  >> on to be picked up.
 	# Called from a signal in Item
 	print("picking up: " + item.item_name)
 	if event.is_action_pressed("left_hand_action"):
