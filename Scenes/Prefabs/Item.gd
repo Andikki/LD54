@@ -11,41 +11,34 @@ enum Location {GROUND, HAND}
 	set(value): 
 		location = value
 		adjust_sprite_position()
+		update_collision()
 @export var has_collision: bool
 #@export var ingredient_in
 
-@export_category("Scene Nodes")
-@export var ground_tilemap: Node2D
-@export var player_node: Node2D
-
-func _init(m_item_name: String = ""):
-	item_name = m_item_name
+@onready var collision_shape: CollisionShape2D = $StaticBody2D/CollisionShape2D
 
 func _ready():
+	location = location
 	
-	if location == Location.GROUND and has_collision:
-		$StaticBody2D/CollisionShape2D.disabled = false
-	else:
-		$StaticBody2D/CollisionShape2D.disabled = true
-	
-	adjust_sprite_position()
+func update_collision() -> void:
+	if collision_shape != null:
+		collision_shape.disabled = location == Location.HAND or not has_collision
 
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
-		$SpriteContainer.position = $TileCentreAnchor.position
-		if ground_tilemap != null:
-			var current_tile_coord = ground_tilemap.local_to_map(self.position)
-			var tilemap_tile_size = ground_tilemap.tile_set.tile_size.x
-			var inter_tile_adjustment = Vector2(tilemap_tile_size/2.0,tilemap_tile_size/2.0)
-		
-			#print("current_tile - " + str(current_tile_coord))
-			position = Vector2(current_tile_coord * tilemap_tile_size) + inter_tile_adjustment
-
+		$SpriteContainer.position = $HandAnchor.position + ($HandAnchor.position - $TileCentreAnchor.position)
 	elif  location == Location.HAND:
 		$SpriteContainer.position = $HandAnchor.position
-		if player_node != null:
-			global_position = player_node.global_position
 
+func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
+	location = Location.GROUND
+	position = tile_map.map_to_local(cell_coords)
+	tile_map.add_child(self)
+
+func take_in_hand(hand_node: Node2D) -> void:
+	location = Location.HAND
+	position = Vector2.ZERO
+	hand_node.add_child(self)
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action"):
