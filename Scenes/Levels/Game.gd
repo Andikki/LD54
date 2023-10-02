@@ -161,7 +161,8 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 				var do_spawn = randi() % item_spawn_chance_in_turns == 0
 				if do_spawn:
 					var item_resource: Resource = spawning_items.pick_random()
-					var item: Item = item_resource.instantiate()
+					var item: Item = await item_resource.instantiate()
+					add_child(item)
 					item.drop_on_the_ground(tile_map, cell_coords)
 
 func calculate_ingredients_for_crafting() -> void:
