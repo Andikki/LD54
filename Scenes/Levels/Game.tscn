@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
 [ext_resource type="TileSet" uid="uid://0gky5q1udx3y" path="res://Assets/TileSets/World.tres" id="2_myymc"]
+[ext_resource type="PackedScene" uid="uid://wk55rhmtfok4" path="res://Scenes/Levels/EndingEscape.tscn" id="2_smwfc"]
 [ext_resource type="Script" path="res://Scenes/Levels/WorldTileMap.gd" id="3_s7xpy"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
 [ext_resource type="AudioStream" uid="uid://cpsnk7m1um6a7" path="res://Assets/Music/Music_2.mp3" id="7_wyr1k"]
@@ -12,6 +13,7 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lkro7")
+ending_scene = ExtResource("2_smwfc")
 
 [node name="WorldTileMap" type="TileMap" parent="."]
 position = Vector2(10, 10)
@@ -54,3 +56,5 @@ bus = &"SFX"
 
 [connection signal="ingredients_for_crafting_updated" from="." to="Crafting" method="_on_ingredients_for_crafting_updated"]
 [connection signal="lit_cells_updated" from="." to="WorldTileMap" method="_on_lit_cells_updated"]
+[connection signal="please_place_raft" from="Crafting" to="." method="_on_please_place_raft"]
+[connection signal="please_place_rope" from="Crafting" to="." method="_on_please_place_rope"]

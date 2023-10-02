@@ -77,7 +77,6 @@ grow_vertical = 0
 position = Vector2(304, 336)
 
 [node name="PlayerIllustration" type="Node2D" parent="PlayerPivot"]
-position = Vector2(3, -4)
 
 [node name="Raft" type="Sprite2D" parent="PlayerPivot/PlayerIllustration"]
 scale = Vector2(4, 4)
