@@ -30,10 +30,10 @@ func _ready():
 	else:
 		$StaticBody2D/CollisionShape2D.disabled = true
 	
-	if not (ground_tilemap is TileMap):
-		ground_tilemap = get_tree().get_root().find_child("WorldTileMap")
-	if not (player_node is CharacterBody2D):
+	if player_node == null:
 		player_node = get_tree().get_root().find_child("Player")
+	if ground_tilemap == null:
+		ground_tilemap = get_tree().get_root().find_child("WorldTileMap")
 	
 	adjust_sprite_position()
 
@@ -55,7 +55,9 @@ func adjust_sprite_position() -> void:
 
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed("left_hand_action") or event.is_action_pressed("left_hand_action"):
+	if event.is_action_pressed("left_hand_action") or\
+			event.is_action_pressed("right_hand_action"):
 		print("Test for item closeness to player")
-		player_node.connect("pick_up", player_node._on_pickup)
+		if not player_node.is_connected("pick_up", player_node._on_pickup):
+			player_node.connect("pick_up", player_node._on_pickup)
 		pick_up.emit(event as InputEvent, self)

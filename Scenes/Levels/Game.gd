@@ -24,6 +24,21 @@ func _ready() -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	player_tile_coords = calculate_tile_coords(player)
 	prepare_new_turn(true)
+	
+	#manage player and tilemap references in item nodes
+	#this is because references suck :)))
+	var temp_player_node = $Player
+	var temp_world_tiles = $WorldTileMap
+	var world_items = temp_world_tiles.get_node("Items").get_children()
+	var player_items = temp_player_node.get_children()
+	world_items.append_array(player_items)
+	if world_items.size > 0:
+		for m_item in world_items:
+			if m_item is Item:
+				m_item = m_item as Item
+				m_item.player_node = temp_player_node
+				m_item.ground_tilemap = temp_world_tiles
+	
 
 func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)

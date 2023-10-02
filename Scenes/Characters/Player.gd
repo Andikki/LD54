@@ -44,7 +44,8 @@ func _on_pickup(event: InputEvent, item: Item) -> void:
 		if right_held_item == null:
 			item.reparent(right_hand_placeholder)
 			item.take_in_hand()
-	disconnect("pick_up", self.pickup) 
+	#only connect to one item's pickup signal at a time
+	disconnect("pick_up", self.pickup)
 
 func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:
