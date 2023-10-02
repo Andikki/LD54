@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://vb0xkbrn6mk"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Crafting.gd" id="1_ii7qh"]
-[ext_resource type="Texture2D" uid="uid://dx3u4a8n6oitg" path="res://Assets/Images/ButtonCraftFire.png" id="2_8lcft"]
+[ext_resource type="Texture2D" uid="uid://cxah0yfpxfp40" path="res://Assets/Images/ButtonCraftFire_disabled.png" id="2_1006r"]
 [ext_resource type="Texture2D" uid="uid://30pnehpqfvnn" path="res://Assets/Images/ButtonCraftRope.png" id="3_sgew8"]
 [ext_resource type="Texture2D" uid="uid://cgn36ljo0d1po" path="res://Assets/Images/ButtonCraftRaft.png" id="4_av64d"]
 [ext_resource type="AudioStream" uid="uid://d2ntf052gbhif" path="res://Assets/Music/Craft.mp3" id="5_rxc46"]
@@ -14,7 +14,7 @@ script = ExtResource("1_ii7qh")
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Craft Fire"
-icon = ExtResource("2_8lcft")
+icon = ExtResource("2_1006r")
 flat = true
 
 [node name="CraftRope" type="Button" parent="."]
