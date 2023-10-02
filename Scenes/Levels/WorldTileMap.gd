@@ -10,7 +10,7 @@ var terrain_set_main := 0
 var terrain_light := 0
 var terrain_darkness := 1
 
-func _on_lit_cells_updated(new_lit_cells: Dictionary) -> void:
+func _on_lit_cells_updated(new_lit_cells: Dictionary, _old_lit_cells: Dictionary) -> void:
 	var cells_to_lit: Array[Vector2i] = []
 	var cells_to_darken: Array[Vector2i] = []
 	

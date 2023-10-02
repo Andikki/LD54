@@ -17,6 +17,6 @@ func _init(m_item_name: String = ""):
 	
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
-		$SpriteContainer.position = $TileCentreAnchor.position
+		$SpriteContainer.position = $HandAnchor.position + ($HandAnchor.position - $TileCentreAnchor.position)
 	elif  location == Location.HAND:
 		$SpriteContainer.position = $HandAnchor.position
