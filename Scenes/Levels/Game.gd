@@ -19,6 +19,8 @@ var spawning_items: Array[Resource] = [
 @onready var crafting_hud: CanvasLayer = $Crafting
 @onready var cur_hovering_item: Item = null
 
+@export var ending_scene: PackedScene
+
 # Variables
 var lit_cells: Dictionary = {}
 var ingredients_for_crafting: Array[Item]
@@ -126,6 +128,10 @@ func _on_pickup(event: String, item: Item) -> void:
 	#  >> on to be picked up.
 	# Called from a signal in Item
 	print("picking up: " + item.item_name)
+	
+	if item.item_name == "Raft":
+		get_tree().change_scene_to_packed(ending_scene)
+	
 	if event == "left"\
 			 and not player.is_hand_interract_in_cur_frame:
 		if player.left_held_item == null:
@@ -172,6 +178,7 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 					var item_resource: Resource = spawning_items.pick_random()
 					var item: Item = await item_resource.instantiate()
 					add_child(item)
+					item.game_node = self
 					item.drop_on_the_ground(tile_map, cell_coords)
 	# deleting items that are not lit anymore
 	for cell_coords in old_lit_cells.keys():
