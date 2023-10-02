@@ -7,9 +7,9 @@ offset_bottom = 115.0
 [node name="CreditsText" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Art Director: Sunday Carrot
+text = "CEO: Rinta
+Art Director: Sunday Carrot
 Music Director: Dani 
 Technical Director: Robin
-Senior Developer: Andi
-Party Clown: Rinta"
+Senior Developer: Andi"
 fit_content = true
