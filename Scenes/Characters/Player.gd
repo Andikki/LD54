@@ -15,7 +15,8 @@ func _ready() -> void:
 	update_animation_parameters(starting_direction)
 	
 	if left_held_item != null:
-		left_held_item.reparent(left_hand_placeholder)
+		left_held_item.game_node = get_parent()
+		left_held_item.take_in_hand(left_hand_placeholder)
 
 func _physics_process(_delta: float) -> void:
 	var input_direction := Vector2(
@@ -31,7 +32,6 @@ func _physics_process(_delta: float) -> void:
 	update_animation_parameters(input_direction)
 	
 	move_and_slide()
-
 
 
 func update_animation_parameters(move_direction: Vector2) -> void:

@@ -32,8 +32,9 @@ script = ExtResource("3_s7xpy")
 [node name="Campfire" parent="WorldTileMap/Items" instance=ExtResource("8_eewm8")]
 position = Vector2(422, 235)
 
-[node name="Player" parent="." instance=ExtResource("1_606qc")]
+[node name="Player" parent="." node_paths=PackedStringArray("left_held_item") instance=ExtResource("1_606qc")]
 position = Vector2(474, 314)
+left_held_item = NodePath("Candle")
 
 [node name="Candle" parent="Player" instance=ExtResource("4_qt4uo")]
 location = 1

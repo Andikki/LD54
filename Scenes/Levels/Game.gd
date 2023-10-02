@@ -36,9 +36,12 @@ func _ready() -> void:
 		for m_item in world_items:
 			if m_item is Item:
 				m_item = m_item as Item
-				m_item.player_node = temp_player_node
-				m_item.ground_tilemap = temp_world_tiles
+				m_item.game_node = self
 	
+	if player.left_held_item != null:
+		player.left_held_item.take_in_hand(player.left_hand_placeholder)
+	if player.right_held_item != null:
+		player.right_held_item.take_in_hand(player.right_hand_placeholder)
 
 func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)
@@ -48,25 +51,25 @@ func _process(_delta: float) -> void:
 		prepare_new_turn(false)
 
 func _input(event):
-	print(player.left_held_item)
 	if event.is_action_pressed("left_hand_action") and player.left_held_item != null:
-		print("leftclick")
 		drop_item(player.left_hand_placeholder, player.left_held_item)
+		player.left_held_item = null
 	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null:
-		print("rightclick")
 		drop_item(player.right_hand_placeholder, player.right_held_item)
+		player.right_held_item = null
 
 func drop_item(hand_container: Node2D, hand_item: Item):
 	var temp_dropping_pos = mouse_pos_item_drop_global_position()
 	var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
 	var ground_items = $WorldTileMap/Items.get_children()
-	
+	print("tile - " + str(dropping_cell))
 	#swapping item on ground
 	var swapped_item: Item = null
 	for g_node in ground_items:
 		var g_item = g_node as Item
 		if g_item.world_tile_coord == dropping_cell:
 			swapped_item = g_item
+	print("swapping Item - " + str(swapped_item))
 	
 	hand_item.drop_on_the_ground(tile_map, dropping_cell)
 	if swapped_item != null:
@@ -76,20 +79,18 @@ func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var mouse_dir = (mouse_pos - global_position).normalized()
 	
-	var direction_to_mouse = mouse_dir.dot(Vector2.UP)
+	var triangulate_mouse_pos = mouse_dir.dot(Vector2(1,1).normalized())
+	var triangulate_mouse_neg = mouse_dir.dot(Vector2(1,-1).normalized())
 	
 	var dropping_direction
-	
-	if direction_to_mouse > 0.5:
-		dropping_direction =  Vector2.UP
-	elif direction_to_mouse < -0.5:
-		dropping_direction =  Vector2.DOWN
-	else:
-		var horizontal_dir_test = mouse_dir.dot(Vector2.RIGHT)
-		if horizontal_dir_test > 0:
-			dropping_direction =  Vector2.RIGHT
-		else:
-			dropping_direction =  Vector2.LEFT
+	if triangulate_mouse_pos > 0 and triangulate_mouse_neg > 0:
+		dropping_direction = Vector2.RIGHT
+	if triangulate_mouse_pos <= 0 and triangulate_mouse_neg > 0:
+		dropping_direction = Vector2.UP
+	if triangulate_mouse_pos > 0 and triangulate_mouse_neg <= 0:
+		dropping_direction = Vector2.DOWN
+	if triangulate_mouse_pos <= 0 and triangulate_mouse_neg <= 0:
+		dropping_direction = Vector2.LEFT
 	
 	var dropping_pos =  (dropping_direction * tile_map.cell_quadrant_size)\
 			 + player.global_position 

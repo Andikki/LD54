@@ -16,11 +16,13 @@ enum Location {GROUND, HAND}
 #@export var ingredient_in
 
 @export_category("Scene Nodes")
-@export var ground_tilemap: Node2D
-@export var player_node: Node2D
+@export var game_node: Node2D
+
 @onready var collision_shape: CollisionShape2D = \
-		$SpriteContainer/StaticBody2D/CollisionShape2D/CollisionShape2D
-@onready var world_tile_coord = Vector2(-1,-1)
+		$SpriteContainer/StaticBody2D/CollisionShape2D
+@onready var click_area_shape: CollisionShape2D = \
+		$ClickTargetArea/CollisionShape2D
+@onready var world_tile_coord = Vector2i(-1,-1)
 
 signal pickup(event: InputEvent, item_node: Item)
 
@@ -30,10 +32,8 @@ func _init(m_item_name: String = ""):
 func _ready():
 	location = location
 	
-	if player_node == null:
-		player_node = get_tree().get_root().find_child("Player")
-	if ground_tilemap == null:
-		ground_tilemap = get_tree().get_root().find_child("WorldTileMap")
+	if game_node == null:
+		game_node = get_tree().get_root().find_child("Game")
 	
 	adjust_sprite_position()
 
@@ -45,25 +45,31 @@ func update_collision() -> void:
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
 		$SpriteContainer.position = $HandAnchor.position + ($HandAnchor.position - $TileCentreAnchor.position)
+		#Enable collision shapes where necessary
+		collision_shape.disabled = not has_collision
+		click_area_shape.disabled = false
 	elif  location == Location.HAND:
 		$SpriteContainer.position = $HandAnchor.position
+		#Disable collision shapes
+		collision_shape.disabled = true
+		click_area_shape.disabled = true
 
 func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
 	location = Location.GROUND
+	self.reparent(tile_map)
 	position = tile_map.map_to_local(cell_coords)
 	world_tile_coord = cell_coords
-	self.reparent(tile_map)
 
 func take_in_hand(hand_node: Node2D) -> void:
 	location = Location.HAND
+	self.reparent(hand_node)
 	position = Vector2.ZERO
 	world_tile_coord = Vector2(-1,-1)
-	self.reparent(hand_node)
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action") or\
 			event.is_action_pressed("right_hand_action"):
 		print("Test for item closeness to player")
-		if not player_node.get_parent().is_connected("pick_up", player_node.get_parent()._on_pickup):
-			pickup.connect( player_node.get_parent()._on_pickup)
+		if not pickup.is_connected(game_node._on_pickup):
+			pickup.connect( game_node._on_pickup)
 		pickup.emit(event as InputEvent, self)
