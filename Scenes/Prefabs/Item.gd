@@ -18,6 +18,8 @@ enum Location {GROUND, HAND}
 @export_category("Scene Nodes")
 @export var ground_tilemap: Node2D
 @export var player_node: Node2D
+@onready var collision_shape: CollisionShape2D = \
+		$SpriteContainer/StaticBody2D/CollisionShape2D/CollisionShape2D
 
 signal pickup(event: InputEvent, item_node: Item)
 
@@ -48,17 +50,17 @@ func adjust_sprite_position() -> void:
 func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
 	location = Location.GROUND
 	position = tile_map.map_to_local(cell_coords)
-	tile_map.add_child(self)
+	self.reparent(tile_map)
 
 func take_in_hand(hand_node: Node2D) -> void:
 	location = Location.HAND
 	position = Vector2.ZERO
-	hand_node.add_child(self)
+	self.reparent(hand_node)
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action") or\
 			event.is_action_pressed("right_hand_action"):
 		print("Test for item closeness to player")
-		if not player_node.is_connected("pick_up", player_node._on_pickup):
-			pickup.connect( player_node._on_pickup)
+		if not player_node.get_parent().is_connected("pick_up", player_node._on_pickup):
+			pickup.connect( player_node.get_parent()._on_pickup)
 		pickup.emit(event as InputEvent, self)

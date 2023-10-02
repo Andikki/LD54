@@ -1,12 +1,12 @@
 [gd_scene load_steps=29 format=3 uid="uid://vn1lwdxsimu3"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
-[ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="2_2ty6n"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/TileSheets/sample-sprite-sheet.png" id="2_gycvd"]
 [ext_resource type="AudioStream" uid="uid://dpr0ijcmb6jhl" path="res://Assets/Music/Foot3.mp3" id="3_hafey"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
 radius = 4.0
-height = 14.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_6dat0"]
 length = 0.001
@@ -14,7 +14,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -29,7 +29,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -44,13 +44,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [24]
 }
 
 [sub_resource type="Animation" id="Animation_3eojk"]
@@ -59,13 +59,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [16]
 }
 
 [sub_resource type="Animation" id="Animation_qgiq0"]
@@ -74,30 +74,30 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [8]
 }
 
 [sub_resource type="Animation" id="Animation_pnrrr"]
 resource_name = "walk_down"
-length = 0.2
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [32, 33, 34, 35, 37]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -106,9 +106,12 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
 "args": [],
 "method": &"play_footsteps_audio"
 }]
@@ -116,19 +119,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_iuijn"]
 resource_name = "walk_left"
-length = 0.2
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [56, 57, 58, 59, 60, 61]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -137,9 +140,12 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
 "args": [],
 "method": &"play_footsteps_audio"
 }]
@@ -147,19 +153,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_djdmg"]
 resource_name = "walk_right"
-length = 0.2
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [48, 49, 50, 51, 52, 53]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -168,9 +174,12 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
 "args": [],
 "method": &"play_footsteps_audio"
 }]
@@ -178,19 +187,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_xn473"]
 resource_name = "walk_up"
-length = 0.2
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 3]
+"values": [40, 41, 42, 43, 44, 45]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -199,9 +208,12 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"play_footsteps_audio"
+}, {
 "args": [],
 "method": &"play_footsteps_audio"
 }]
@@ -288,13 +300,13 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 script = ExtResource("1_27483")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
-texture = ExtResource("2_2ty6n")
-hframes = 2
-vframes = 2
+position = Vector2(0, -12)
+texture = ExtResource("2_gycvd")
+hframes = 8
+vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(-1, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_pcjlu")
 
