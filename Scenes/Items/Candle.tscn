@@ -41,6 +41,7 @@ animations = [{
 }]
 
 [node name="Candle" instance=ExtResource("1_4g85h")]
+item_name = "Candle"
 
 [node name="TileCentreAnchor" parent="." index="1"]
 position = Vector2(0, -8)

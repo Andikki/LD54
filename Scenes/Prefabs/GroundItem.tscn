@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://re6pwgpcvy4a"]
-
-[ext_resource type="Script" path="res://Scenes/Prefabs/GroundItem.gd" id="1_dmg5t"]
-
-[node name="GroundItem" type="Node2D"]
-script = ExtResource("1_dmg5t")
