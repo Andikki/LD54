@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvnisi2k2488r"
-path="res://.godot/imported/PlaceHolderGround.png-ad89d2da6c9d3178db75f1a27087c8e6.ctex"
+uid="uid://bkdqcnl6dimtl"
+path="res://.godot/imported/island.png-904106743d58ba1f1bd101d7617647c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/TileSheets/PlaceHolderGround.png"
-dest_files=["res://.godot/imported/PlaceHolderGround.png-ad89d2da6c9d3178db75f1a27087c8e6.ctex"]
+source_file="res://Assets/Sprites/TileSheets/island.png"
+dest_files=["res://.godot/imported/island.png-904106743d58ba1f1bd101d7617647c1.ctex"]
 
 [params]
 

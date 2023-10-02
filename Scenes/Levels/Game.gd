@@ -2,18 +2,17 @@ extends Node2D
 
 signal cells_lit_status_updated(new_cells_lit_status: Dictionary)
 
-@onready var tile_map: TileMap = $TileMap
+@onready var tile_map: WorldTileMap = $WorldTileMap
 @onready var player: CharacterBody2D = $Player
 
 var light_group := "light"
 var darkness_layer := 1
-var top_left_tile_coords := Vector2i(-1, -1)
-var bottom_right_tile_coords := Vector2i(29, 16)
 
 var cells_lit_status: Dictionary = {}
 var player_tile_coords: Vector2i
 
 func _ready() -> void:
+	player_tile_coords = calculate_tile_coords(player)
 	player_tile_coords = calculate_tile_coords(player)
 	prepare_new_turn()
 
@@ -30,8 +29,8 @@ func prepare_new_turn() -> void:
 	emit_signal("cells_lit_status_updated", cells_lit_status)
 	
 func calculate_lit_tiles() -> void:
-	for x_index in range(top_left_tile_coords.x, bottom_right_tile_coords.x):
-		for y_index in range(top_left_tile_coords.y, bottom_right_tile_coords.y):
+	for x_index in range(tile_map.top_left_tile_coords.x, tile_map.bottom_right_tile_coords.x):
+		for y_index in range(tile_map.top_left_tile_coords.y, tile_map.bottom_right_tile_coords.y):
 			cells_lit_status[Vector2i(x_index, y_index)] = false
 
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
