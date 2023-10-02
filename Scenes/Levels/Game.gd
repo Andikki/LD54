@@ -17,7 +17,6 @@ var spawning_items: Array[Resource] = [
 @onready var tile_map: WorldTileMap = $WorldTileMap
 @onready var player: CharacterBody2D = $Player
 @onready var crafting_hud: CanvasLayer = $Crafting
-@onready var cur_hovering_item: Item = null
 
 # Variables
 var lit_cells: Dictionary = {}
@@ -71,14 +70,6 @@ func _unhandled_input(event):
 		player.is_hand_interract_in_cur_frame = true
 		drop_item(player.right_hand_placeholder, player.right_held_item)
 		player.right_held_item = null
-	elif event.is_action_pressed("left_hand_action") and cur_hovering_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		_on_pickup("left", cur_hovering_item)
-		player.left_held_item = cur_hovering_item
-	elif event.is_action_pressed("right_hand_action") and cur_hovering_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		_on_pickup("right", cur_hovering_item)
-		player.right_held_item = cur_hovering_item
 
 func drop_item(hand_container: Node2D, hand_item: Item):
 	var temp_dropping_pos = mouse_pos_item_drop_global_position()
@@ -121,18 +112,18 @@ func mouse_pos_item_drop_global_position() -> Vector2:
 	
 	return dropping_pos
 
-func _on_pickup(event: String, item: Item) -> void:
+func _on_pickup(event: InputEvent, item: Item) -> void:
 	#This code can only be ran if an item on the ground has been clicked
 	#  >> on to be picked up.
 	# Called from a signal in Item
 	print("picking up: " + item.item_name)
-	if event == "left"\
+	if event.is_action_pressed("left_hand_action")\
 			 and not player.is_hand_interract_in_cur_frame:
 		if player.left_held_item == null:
 			player.is_hand_interract_in_cur_frame = true
 			item.take_in_hand(player.left_hand_placeholder)
 			
-	elif event == "right"\
+	elif event.is_action_pressed("right_hand_action")\
 			and not player.is_hand_interract_in_cur_frame:
 		if player.right_held_item == null:
 			player.is_hand_interract_in_cur_frame = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://di852f1fesnin"]
+[gd_scene load_steps=4 format=3 uid="uid://dfhf8umvl31el"]
 
 [ext_resource type="Script" path="res://Scenes/Prefabs/Item.gd" id="1_xmlpm"]
 
@@ -6,7 +6,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b78f5"]
 
-[node name="Item" type="Node2D"]
+[node name="Item" type="Node2D" groups=["items"]]
 script = ExtResource("1_xmlpm")
 
 [node name="HandAnchor" type="Node2D" parent="."]
@@ -27,5 +27,4 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTargetArea"]
 shape = SubResource("RectangleShape2D_b78f5")
 
-[connection signal="mouse_entered" from="ClickTargetArea" to="." method="_on_click_target_area_mouse_entered"]
-[connection signal="mouse_exited" from="ClickTargetArea" to="." method="_on_click_target_area_mouse_exited"]
+[connection signal="input_event" from="ClickTargetArea" to="." method="_on_click_target_area_input_event"]

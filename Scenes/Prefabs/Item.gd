@@ -23,7 +23,6 @@ enum Location {GROUND, HAND}
 @onready var click_area_shape: CollisionShape2D = \
 		$ClickTargetArea/CollisionShape2D
 @onready var world_tile_coord = Vector2i(-1,-1)
-@onready var mouse_hovering: bool = false
 
 signal pickup(event: InputEvent, item_node: Item)
 
@@ -77,10 +76,8 @@ func take_in_hand(hand_node: Node2D) -> void:
 	collision_shape.disabled = not has_collision
 	click_area_shape.disabled = false
 
-func _on_click_target_area_mouse_entered():
-	mouse_hovering = true
-	game_node.cur_hovering_item = self
-
-func _on_click_target_area_mouse_exited():
-	mouse_hovering = false
-	game_node.cur_hovering_item = null
+func _on_click_target_area_input_event(viewport, event, shape_idx):
+	if event.is_action_pressed("left_hand_action") or\
+			event.is_action_pressed("right_hand_action"):
+		print("Test for item closeness to player")
+		game_node._on_pickup(event, self)
