@@ -40,6 +40,7 @@ func adjust_sprite_position() -> void:
 		
 			#print("current_tile - " + str(current_tile_coord))
 			position = Vector2(current_tile_coord * tilemap_tile_size) + inter_tile_adjustment
+
 	elif  location == Location.HAND:
 		$SpriteContainer.position = $HandAnchor.position
 		if player_node != null:

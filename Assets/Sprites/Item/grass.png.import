@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvnisi2k2488r"
-path="res://.godot/imported/PlaceHolderGround.png-ad89d2da6c9d3178db75f1a27087c8e6.ctex"
+uid="uid://crspb85gxlguf"
+path="res://.godot/imported/grass.png-4ef58272cce7b43bf449e3cbb9d3fc8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/TileSheets/PlaceHolderGround.png"
-dest_files=["res://.godot/imported/PlaceHolderGround.png-ad89d2da6c9d3178db75f1a27087c8e6.ctex"]
+source_file="res://Assets/Sprites/Item/grass.png"
+dest_files=["res://.godot/imported/grass.png-4ef58272cce7b43bf449e3cbb9d3fc8a.ctex"]
 
 [params]
 
