@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckp3hlh6qnecc"]
+
+[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Prefabs/Item.tscn" id="1_671ul"]
+[ext_resource type="Texture2D" uid="uid://c5tote57n2mwj" path="res://Assets/Sprites/Item/raft.png" id="2_jykrc"]
+
+[node name="Item" instance=ExtResource("1_671ul")]
+item_name = "Rope"
+
+[node name="TileCentreAnchor" parent="." index="1"]
+position = Vector2(0, -4)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("2_jykrc")
