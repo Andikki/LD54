@@ -49,14 +49,22 @@ func _process(_delta: float) -> void:
 
 func _input(event):
 	if event.is_action_pressed("left_hand_action") and $Player.left_held_item != null:
-		var temp_dropping_pos = mouse_pos_item_drop_global_position()
-		var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
-		
-		var ground_items = $WorldTileMap/Items.get_children()
+		drop_item($Player.left_hand_placeholder)
 	elif event.is_action_pressed("right_hand_action") and $Player.right_held_item != null:
-		var temp_dropping_pos = mouse_pos_item_drop_global_position()
-		var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
-		var ground_items = $WorldTileMap/Items.get_children()
+		drop_item($Player.right_hand_placeholder)
+
+func drop_item(hand_container: Node2D):
+	var temp_dropping_pos = mouse_pos_item_drop_global_position()
+	var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
+	var ground_items = $WorldTileMap/Items.get_children()
+	
+	#swapping item on ground
+	var swapped_item: Item = null
+	for g_node in ground_items:
+		var g_item = g_node as Item
+		if g_item.world_tile_coord == dropping_cell:
+			swapped_item = g_item
+	
 
 func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()

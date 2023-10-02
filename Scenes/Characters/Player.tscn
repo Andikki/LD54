@@ -1,9 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://vn1lwdxsimu3"]
+[gd_scene load_steps=29 format=3 uid="uid://vn1lwdxsimu3"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
-
 [ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="2_2ty6n"]
-
 [ext_resource type="AudioStream" uid="uid://dpr0ijcmb6jhl" path="res://Assets/Music/Foot3.mp3" id="3_hafey"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
