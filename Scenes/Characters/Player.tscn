@@ -276,7 +276,7 @@ position = Vector2(0, -16)
 texture = ExtResource("2_2ty6n")
 hframes = 2
 vframes = 8
-frame = 11
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
@@ -301,6 +301,7 @@ position = Vector2(-7, -12)
 [node name="FootstepsPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_hafey")
 volume_db = -20.0
+bus = &"SFX"
 
 [node name="HandRPlaceholder" type="Node2D" parent="."]
 position = Vector2(7, -12)
