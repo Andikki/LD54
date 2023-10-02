@@ -296,7 +296,7 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_an8dp")
 states/Walk/position = Vector2(553, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_2pklm"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_l2glj"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_r48ob")]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_27483")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

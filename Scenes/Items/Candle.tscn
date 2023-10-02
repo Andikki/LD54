@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://becmahlgtb03r"]
 
-[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_4g85h"]
+[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Prefabs/Item.tscn" id="1_4g85h"]
 [ext_resource type="Texture2D" uid="uid://bhnnxyf04v6pi" path="res://Assets/Sprites/Item/candle.png" id="2_dj773"]
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="3_if7fw"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/LightSource.tscn" id="3_if7fw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgoja"]
 atlas = ExtResource("2_dj773")
@@ -42,9 +42,6 @@ animations = [{
 
 [node name="Candle" instance=ExtResource("1_4g85h")]
 item_name = "Candle"
-
-[node name="TileCentreAnchor" parent="." index="1"]
-position = Vector2(0, -8)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="0"]
 position = Vector2(1, -10)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cjuk4k2jlyhdr"]
 
-[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_1k674"]
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="1_n4pqc"]
+[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Prefabs/Item.tscn" id="1_1k674"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/LightSource.tscn" id="1_n4pqc"]
 [ext_resource type="Texture2D" uid="uid://cbrv7buhomowg" path="res://Assets/Sprites/Item/campfire.png" id="2_l2jfq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kr7fd"]

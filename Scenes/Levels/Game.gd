@@ -2,6 +2,7 @@ extends Node2D
 
 # Signals
 signal lit_cells_updated(new_lit_cells: Dictionary, old_lit_cells: Dictionary)
+signal ingredients_for_crafting_updated(ingredients: Array[Item])
 
 # Consts
 var light_group := "light"
@@ -14,9 +15,11 @@ var spawning_items: Array[Resource] = [
 # Node references
 @onready var tile_map: WorldTileMap = $WorldTileMap
 @onready var player: CharacterBody2D = $Player
+@onready var crafting_hud: CanvasLayer = $Crafting
 
 # Variables
 var lit_cells: Dictionary = {}
+var ingredients_for_crafting: Array[Item]
 var player_tile_coords: Vector2i
 
 func _ready() -> void:
@@ -39,7 +42,9 @@ func prepare_new_turn(is_first_turn: bool) -> void:
 	if not is_first_turn:
 		spawn_items(lit_cells, old_lit_cells)
 	emit_signal("lit_cells_updated", lit_cells, old_lit_cells)
-	
+	calculate_ingredients_for_crafting()
+	emit_signal("ingredients_for_crafting_updated", ingredients_for_crafting)
+		
 func calculate_lit_cells() -> void:
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
 	
@@ -64,5 +69,19 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 					item.location = item.Location.GROUND
 					tile_map.add_child(item)
 
+func calculate_ingredients_for_crafting() -> void:
+	var all_items = get_tree().get_nodes_in_group("items")
+	ingredients_for_crafting.clear()
+	for item in all_items:
+		var player_pos_x = tile_map.local_to_map(player.position).x
+		var player_pos_y = tile_map.local_to_map(player.position).y
+		var item_pos_x = tile_map.local_to_map(item.position).x
+		var item_pos_y = tile_map.local_to_map(item.position).y
+		pass
+		if (abs(player_pos_x - item_pos_x) + abs(player_pos_y - item_pos_y) < 2) \
+		or item.location == item.Location.HAND:
+			ingredients_for_crafting.append(item)
+
 func calculate_tile_coords(object: Node2D) -> Vector2i:
 	return tile_map.local_to_map(tile_map.to_local(object.global_position))
+
