@@ -87,7 +87,7 @@ position = Vector2(0, -64)
 scale = Vector2(4, 4)
 texture = ExtResource("3_mi85o")
 hframes = 2
-vframes = 2
+vframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Swim"
