@@ -196,12 +196,14 @@ func _on_please_place_rope():
 	var rope_resource: Resource = preload("res://Scenes/Items/Rope.tscn")
 	var rope: Item = await rope_resource.instantiate()
 	add_child(rope)
+	rope.game_node = self
 	rope.drop_on_the_ground(tile_map, Vector2i(tile_map.local_to_map(player.position).x, tile_map.local_to_map(player.position).y))
 
 func _on_please_place_raft():
 	var raft_resource: Resource = preload("res://Scenes/Items/Raft.tscn")
 	var raft: Item = await raft_resource.instantiate()
 	add_child(raft)
+	raft.game_node = self
 	raft.drop_on_the_ground(tile_map, Vector2i(tile_map.local_to_map(player.position).x, tile_map.local_to_map(player.position).y))
 
 func calculate_ingredients_for_crafting() -> void:
