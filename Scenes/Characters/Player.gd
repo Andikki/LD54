@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var move_speed := 100.0
-@export var starting_direction := Vector2.UP
+@export var starting_direction := Vector2.DOWN
 @export var left_held_item: Item = null
 @export var right_held_item: Item = null
 

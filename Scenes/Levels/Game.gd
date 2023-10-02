@@ -103,7 +103,7 @@ func drop_item(hand_container: Node2D, hand_item: Item):
 
 func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()
-	var mouse_dir = (mouse_pos - global_position).normalized()
+	var mouse_dir = (mouse_pos - player.global_position).normalized()
 	
 	var triangulate_mouse_pos = mouse_dir.dot(Vector2(1,1).normalized())
 	var triangulate_mouse_neg = mouse_dir.dot(Vector2(1,-1).normalized())
