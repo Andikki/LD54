@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmcn5g0fbiyey"]
+[gd_scene load_steps=10 format=3 uid="uid://dmcn5g0fbiyey"]
 
 [ext_resource type="PackedScene" uid="uid://vn1lwdxsimu3" path="res://Scenes/Characters/Player.tscn" id="1_606qc"]
 [ext_resource type="Script" path="res://Scenes/Levels/Game.gd" id="1_lkro7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/Levels/WorldTileMap.gd" id="3_s7xpy"]
 [ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_qt4uo"]
 [ext_resource type="AudioStream" uid="uid://cpsnk7m1um6a7" path="res://Assets/Music/Music_2.mp3" id="7_wyr1k"]
+[ext_resource type="AudioStream" uid="uid://d2ntf052gbhif" path="res://Assets/Music/Craft.mp3" id="8_3mcqn"]
 [ext_resource type="PackedScene" uid="uid://vb0xkbrn6mk" path="res://Scenes/Levels/Crafting.tscn" id="8_8mwef"]
 [ext_resource type="PackedScene" uid="uid://cjuk4k2jlyhdr" path="res://Scenes/Items/Campfire.tscn" id="8_eewm8"]
 
@@ -44,6 +45,10 @@ location = 1
 stream = ExtResource("7_wyr1k")
 autoplay = true
 bus = &"Music"
+
+[node name="CraftingSuccessPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_3mcqn")
+bus = &"SFX"
 
 [node name="Crafting" parent="." instance=ExtResource("8_8mwef")]
 

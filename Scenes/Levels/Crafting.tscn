@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://vb0xkbrn6mk"]
+[gd_scene load_steps=6 format=3 uid="uid://vb0xkbrn6mk"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/Crafting.gd" id="1_ii7qh"]
 [ext_resource type="Texture2D" uid="uid://dx3u4a8n6oitg" path="res://Assets/Images/ButtonCraftFire.png" id="2_8lcft"]
 [ext_resource type="Texture2D" uid="uid://30pnehpqfvnn" path="res://Assets/Images/ButtonCraftRope.png" id="3_sgew8"]
 [ext_resource type="Texture2D" uid="uid://cgn36ljo0d1po" path="res://Assets/Images/ButtonCraftRaft.png" id="4_av64d"]
+[ext_resource type="AudioStream" uid="uid://d2ntf052gbhif" path="res://Assets/Music/Craft.mp3" id="5_rxc46"]
 
 [node name="Crafting" type="CanvasLayer"]
 layer = 2
@@ -26,3 +27,8 @@ icon = ExtResource("3_sgew8")
 offset_right = 8.0
 offset_bottom = 8.0
 icon = ExtResource("4_av64d")
+
+[node name="CraftingSuccessPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rxc46")
+volume_db = -7.0
+bus = &"SFX"
