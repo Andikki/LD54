@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var footsteps_player: AudioStreamPlayer2D = $FootstepsPlayer
 @onready var left_hand_placeholder: Node2D = $HandLPlaceholder
 @onready var right_hand_placeholder: Node2D = $HandRPlaceholder
+@onready var is_hand_interract_in_cur_frame: bool = false
 
 func _ready() -> void:
 	update_animation_parameters(starting_direction)

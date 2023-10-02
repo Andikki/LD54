@@ -49,14 +49,21 @@ func _process(_delta: float) -> void:
 	player_tile_coords = calculate_tile_coords(player)
 	if previous_player_tile_coords != player_tile_coords:
 		prepare_new_turn(false)
+	
+	if player.is_hand_interract_in_cur_frame:
+		player.is_hand_interract_in_cur_frame = false
 
 func _input(event):
-	if event.is_action_pressed("left_hand_action") and player.left_held_item != null:
+	if event.is_action_pressed("left_hand_action") and player.left_held_item != null\
+			and not player.is_hand_interract_in_cur_frame:
 		print("left click")
+		player.is_hand_interract_in_cur_frame = true
 		drop_item(player.left_hand_placeholder, player.left_held_item)
 		player.left_held_item = null
-	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null:
+	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null\
+			and not player.is_hand_interract_in_cur_frame:
 		print("right click")
+		player.is_hand_interract_in_cur_frame = true
 		drop_item(player.right_hand_placeholder, player.right_held_item)
 		player.right_held_item = null
 
@@ -106,12 +113,18 @@ func _on_pickup(event: InputEvent, item: Item) -> void:
 	#  >> on to be picked up.
 	# Called from a signal in Item
 	print("picking up: " + item.item_name)
-	if event.is_action_pressed("left_hand_action"):
+	if event.is_action_pressed("left_hand_action")\
+			 and not player.is_hand_interract_in_cur_frame:
 		if player.left_held_item == null:
+			player.is_hand_interract_in_cur_frame = true
 			item.take_in_hand(player.left_hand_placeholder)
-	elif event.is_action_pressed("right_hand_action"):
+			
+	elif event.is_action_pressed("right_hand_action")\
+			and not player.is_hand_interract_in_cur_frame:
 		if player.right_held_item == null:
+			player.is_hand_interract_in_cur_frame = true
 			item.take_in_hand(player.right_hand_placeholder)
+			
 	#only connect to one item's pickup signal at a time
 	disconnect("pick_up", self._on_pickup)
 

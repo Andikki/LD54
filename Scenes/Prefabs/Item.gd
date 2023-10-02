@@ -62,16 +62,19 @@ func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
 	self.reparent(tile_map)
 	position = tile_map.map_to_local(cell_coords)
 	world_tile_coord = cell_coords
-	collision_shape.disabled = not has_collisison
+	#Lambda function to disable / enable collision after everything else
+	collision_shape.disabled = not has_collision
 	click_area_shape.disabled = false
+	
 
 func take_in_hand(hand_node: Node2D) -> void:
 	location = Location.HAND
 	self.reparent(hand_node)
 	position = Vector2.ZERO
 	world_tile_coord = Vector2(-1,-1)
-	collision_shape.disabled = true
-	click_area_shape.disabled = true
+	#Lambda function to disable / enable collision after everything else
+	collision_shape.disabled = not has_collision
+	click_area_shape.disabled = false
 
 func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action") or\
