@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://vb0xkbrn6mk"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/Crafting.gd" id="1_ii7qh"]
+[ext_resource type="Texture2D" uid="uid://3dy38rdre76h" path="res://Assets/Images/PinkButton.png" id="2_vxlk2"]
+
+[node name="Crafting" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_ii7qh")
+
+[node name="CraftFire" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Craft Fire"
+icon = ExtResource("2_vxlk2")
+flat = true

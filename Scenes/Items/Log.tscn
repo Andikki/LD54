@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://by76gab2it83w"]
+[gd_scene load_steps=3 format=3 uid="uid://c0qcjlybkqos3"]
 
-[ext_resource type="PackedScene" uid="uid://di852f1fesnin" path="res://Scenes/Prefabs/Item.tscn" id="1_p2qum"]
+[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Prefabs/Item.tscn" id="1_p2qum"]
 [ext_resource type="Texture2D" uid="uid://ogloed6p85mn" path="res://Assets/Sprites/Item/log.png" id="2_okudn"]
 
 [node name="Item" instance=ExtResource("1_p2qum")]
+item_name = "Log"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" index="0"]
 position = Vector2(0, -8)
