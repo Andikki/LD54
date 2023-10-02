@@ -57,7 +57,7 @@ func _process(_delta: float) -> void:
 	if player.is_hand_interract_in_cur_frame:
 		player.is_hand_interract_in_cur_frame = false
 
-func _input(event):
+func _unhandled_input(event):
 	if event.is_action_pressed("left_hand_action") and player.left_held_item != null\
 			and not player.is_hand_interract_in_cur_frame:
 		print("left click")
