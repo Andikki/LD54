@@ -16,7 +16,7 @@ enum Location {GROUND, HAND}
 #@export var ingredient_in
 
 @export_category("Scene Nodes")
-@export var game_node: Node2D
+@export var game_node: Game
 
 @onready var collision_shape: CollisionShape2D = \
 		$SpriteContainer/StaticBody2D/CollisionShape2D
@@ -80,6 +80,4 @@ func _on_click_target_area_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("left_hand_action") or\
 			event.is_action_pressed("right_hand_action"):
 		print("Test for item closeness to player")
-		if not pickup.is_connected(game_node._on_pickup):
-			pickup.connect( game_node._on_pickup)
-		pickup.emit(event as InputEvent, self)
+		game_node._on_pickup(event, self)
