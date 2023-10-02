@@ -52,9 +52,11 @@ func _process(_delta: float) -> void:
 
 func _input(event):
 	if event.is_action_pressed("left_hand_action") and player.left_held_item != null:
+		print("left click")
 		drop_item(player.left_hand_placeholder, player.left_held_item)
 		player.left_held_item = null
 	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null:
+		print("right click")
 		drop_item(player.right_hand_placeholder, player.right_held_item)
 		player.right_held_item = null
 
@@ -71,9 +73,11 @@ func drop_item(hand_container: Node2D, hand_item: Item):
 			swapped_item = g_item
 	print("swapping Item - " + str(swapped_item))
 	
-	hand_item.drop_on_the_ground(tile_map, dropping_cell)
 	if swapped_item != null:
+		print("Swap not null")
 		swapped_item.take_in_hand(hand_container)
+	
+	hand_item.drop_on_the_ground(tile_map, dropping_cell)
 
 func mouse_pos_item_drop_global_position() -> Vector2:
 	var mouse_pos = get_viewport().get_mouse_position()

@@ -14,9 +14,16 @@ extends CharacterBody2D
 func _ready() -> void:
 	update_animation_parameters(starting_direction)
 	
+	#Initial held items
 	if left_held_item != null:
 		left_held_item.game_node = get_parent()
 		left_held_item.take_in_hand(left_hand_placeholder)
+		left_held_item.adjust_sprite_position()
+	
+	if right_held_item != null:
+		right_held_item.game_node = get_parent()
+		right_held_item.take_in_hand(right_hand_placeholder)
+		right_held_item.adjust_sprite_position()
 
 func _physics_process(_delta: float) -> void:
 	var input_direction := Vector2(
