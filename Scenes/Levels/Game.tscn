@@ -48,3 +48,5 @@ autoplay = true
 
 [connection signal="ingredients_for_crafting_updated" from="." to="Crafting" method="_on_ingredients_for_crafting_updated"]
 [connection signal="lit_cells_updated" from="." to="WorldTileMap" method="_on_lit_cells_updated"]
+[connection signal="please_place_raft" from="Crafting" to="." method="_on_please_place_raft"]
+[connection signal="please_place_rope" from="Crafting" to="." method="_on_please_place_rope"]

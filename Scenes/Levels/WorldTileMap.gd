@@ -26,6 +26,7 @@ func _on_lit_cells_updated(new_lit_cells: Dictionary, _old_lit_cells: Dictionary
 				cells_to_lit.append(cell_coords)
 			elif not should_be_lit and is_lit:
 				cells_to_darken.append(cell_coords)
+		
 
 	if cells_to_darken.size() > 0:
 		set_cells_terrain_connect(darkness_layer, cells_to_darken, terrain_set_main, terrain_darkness, false)
