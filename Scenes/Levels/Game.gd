@@ -164,6 +164,17 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 					var item: Item = await item_resource.instantiate()
 					add_child(item)
 					item.drop_on_the_ground(tile_map, cell_coords)
+	# deleting items that are not lit anymore
+	for cell_coords in old_lit_cells.keys():
+		var is_lit = lit_cells.has(cell_coords)
+		if not is_lit:
+			for item in get_tree().get_nodes_in_group("items"):
+				var item_pos_x = tile_map.local_to_map(item.position).x
+				var item_pos_y = tile_map.local_to_map(item.position).y
+				var cell_pos_x = cell_coords.x
+				var cell_pos_y = cell_coords.y
+				if item_pos_x == cell_pos_x and item_pos_y == cell_pos_y:
+					item.queue_free()
 					
 func _on_please_place_rope():
 	var rope_resource: Resource = preload("res://Scenes/Items/Rope.tscn")
