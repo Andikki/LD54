@@ -42,7 +42,6 @@ animations = [{
 
 [node name="Campfire" instance=ExtResource("1_1k674")]
 item_name = "CampFire"
-has_collision = true
 
 [node name="TileCentreAnchor" parent="." index="1"]
 position = Vector2(0, -6)
