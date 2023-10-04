@@ -1,30 +1,19 @@
+class_name Player
 extends CharacterBody2D
+
+enum Hand {LEFT, RIGHT}
 
 @export var move_speed := 100.0
 @export var starting_direction := Vector2.DOWN
-@export var left_held_item: Item = null
-@export var right_held_item: Item = null
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var footsteps_player: AudioStreamPlayer2D = $FootstepsPlayer
-@onready var left_hand_placeholder: Node2D = $HandLPlaceholder
-@onready var right_hand_placeholder: Node2D = $HandRPlaceholder
-@onready var is_hand_interract_in_cur_frame: bool = false
+@onready var left_hand_node: Node2D = $LeftHand
+@onready var right_hand_node: Node2D = $RightHand
 
 func _ready() -> void:
 	update_animation_parameters(starting_direction)
-	
-	#Initial held items
-	if left_held_item != null:
-		left_held_item.game_node = get_parent()
-		left_held_item.take_in_hand(left_hand_placeholder)
-		left_held_item.adjust_sprite_position()
-	
-	if right_held_item != null:
-		right_held_item.game_node = get_parent()
-		right_held_item.take_in_hand(right_hand_placeholder)
-		right_held_item.adjust_sprite_position()
 
 func _physics_process(_delta: float) -> void:
 	var input_direction := Vector2(
@@ -41,6 +30,22 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
+## If the player is currently holding anything in this hand, returns held item.
+## The caller needs to move returned item elsewhere,
+## otherwise the player will end up holding two items in one hand.
+## Passed item can also be null, then this function will just return held item.
+func take_item(item: Item, hand: Hand) -> Item:
+	var held_item: Item = show_item(hand)
+
+	if item != null:
+		var hand_node: Node2D = left_hand_node if hand == Hand.LEFT else right_hand_node
+		item.take_in_hand(hand_node)
+	
+	return held_item
+
+func show_item(hand: Hand) -> Item:
+	var hand_node: Node2D = left_hand_node if hand == Hand.LEFT else right_hand_node
+	return null if hand_node.get_child_count() == 0 else hand_node.get_child(0)
 
 func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:

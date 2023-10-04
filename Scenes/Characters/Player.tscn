@@ -3,25 +3,11 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player.gd" id="1_27483"]
 [ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="2_2ty6n"]
 [ext_resource type="AudioStream" uid="uid://dpr0ijcmb6jhl" path="res://Assets/Music/Foot3.mp3" id="3_hafey"]
+[ext_resource type="PackedScene" uid="uid://becmahlgtb03r" path="res://Scenes/Items/Candle.tscn" id="4_douk0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcjlu"]
 radius = 4.0
 height = 14.0
-
-[sub_resource type="Animation" id="Animation_1gsqd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
 
 [sub_resource type="Animation" id="Animation_kmlol"]
 resource_name = "idle_down"
@@ -217,7 +203,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p0ft3"]
 _data = {
-"RESET": SubResource("Animation_1gsqd"),
 "idle_down": SubResource("Animation_kmlol"),
 "idle_left": SubResource("Animation_4fg2l"),
 "idle_right": SubResource("Animation_3eojk"),
@@ -288,19 +273,14 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3myh3"]
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_rscj6")
 states/Idle/position = Vector2(375, 100)
+states/Start/position = Vector2(201, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_an8dp")
 states/Walk/position = Vector2(553, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_2pklm"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_l2glj"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_r48ob")]
+graph_offset = Vector2(-197, -30)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_27483")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
-texture = ExtResource("2_2ty6n")
-hframes = 2
-vframes = 8
-frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
@@ -316,19 +296,25 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3myh3")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Walk/blend_position = Vector2(0, 0)
-
-[node name="ItemPivot" type="Node2D" parent="."]
-position = Vector2(-7, -12)
+parameters/Idle/blend_position = Vector2(0, 1.08079)
+parameters/Walk/blend_position = Vector2(0.00211644, 1.09039)
 
 [node name="FootstepsPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_hafey")
 volume_db = -20.0
 bus = &"SFX"
 
-[node name="HandRPlaceholder" type="Node2D" parent="."]
-position = Vector2(7, -12)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_2ty6n")
+hframes = 2
+vframes = 8
 
-[node name="HandLPlaceholder" type="Node2D" parent="."]
-position = Vector2(-7, -12)
+[node name="LeftHand" type="Node2D" parent="."]
+position = Vector2(-14, -11)
+
+[node name="RightHand" type="Node2D" parent="."]
+position = Vector2(14, -11)
+
+[node name="Candle" parent="RightHand" instance=ExtResource("4_douk0")]
+location = 1
