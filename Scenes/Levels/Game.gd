@@ -12,216 +12,155 @@ var spawning_items: Array[Resource] = [
 	preload("res://Scenes/Items/Grass.tscn"),
 	preload("res://Scenes/Items/Log.tscn")
 ]
+var rope_resource: Resource = preload("res://Scenes/Items/Rope.tscn")
+var raft_resource: Resource = preload("res://Scenes/Items/Raft.tscn")
 
 # Node references
 @onready var tile_map: WorldTileMap = $WorldTileMap
-@onready var player: CharacterBody2D = $Player
+@onready var items_container: Node2D = $WorldTileMap/Items
+@onready var player: Player = $Player
 @onready var crafting_hud: CanvasLayer = $Crafting
-@onready var cur_hovering_item: Item = null
-
-@export var ending_scene: PackedScene
 
 # Variables
 var lit_cells: Dictionary = {}
-var ingredients_for_crafting: Array[Item]
-var player_tile_coords: Vector2i
+var player_cell_coords: Vector2i
 
 func _ready() -> void:
 	randomize()
-	player_tile_coords = calculate_tile_coords(player)
-	player_tile_coords = calculate_tile_coords(player)
-	prepare_new_turn(true)
 	
-	#manage player and tilemap references in item nodes
-	#this is because references suck :)))
-	var temp_player_node = $Player
-	var temp_world_tiles = $WorldTileMap
-	var world_items = temp_world_tiles.get_node("Items").get_children()
-	var player_items = temp_player_node.get_children()
-	world_items.append_array(player_items)
-	if world_items.size() > 0:
-		for m_item in world_items:
-			if m_item is Item:
-				m_item = m_item as Item
-				m_item.game_node = self
+	player_cell_coords = get_object_cell_coords(player)
 	
-	if player.left_held_item != null:
-		player.left_held_item.take_in_hand(player.left_hand_placeholder)
-	if player.right_held_item != null:
-		player.right_held_item.take_in_hand(player.right_hand_placeholder)
+	for item in items_container.get_children():
+		item.ground_coordinates = get_object_cell_coords(item)
+		item.position = tile_map.map_to_local(item.ground_coordinates)
+		
+	trigger_new_turn(true)
 
 func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)
-	var previous_player_tile_coords = player_tile_coords
-	player_tile_coords = calculate_tile_coords(player)
-	if previous_player_tile_coords != player_tile_coords:
-		prepare_new_turn(false)
-	
-	if player.is_hand_interract_in_cur_frame:
-		player.is_hand_interract_in_cur_frame = false
+	var previous_player_cell_coords = player_cell_coords
+	player_cell_coords = get_object_cell_coords(player)
+	if previous_player_cell_coords != player_cell_coords:
+		trigger_new_turn()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("left_hand_action") and player.left_held_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		print("left click")
-		player.is_hand_interract_in_cur_frame = true
-		drop_item(player.left_hand_placeholder, player.left_held_item)
-		player.left_held_item = null
-	elif event.is_action_pressed("right_hand_action") and player.right_held_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		print("right click")
-		player.is_hand_interract_in_cur_frame = true
-		drop_item(player.right_hand_placeholder, player.right_held_item)
-		player.right_held_item = null
-	elif event.is_action_pressed("left_hand_action") and cur_hovering_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		_on_pickup("left", cur_hovering_item)
-		player.left_held_item = cur_hovering_item
-	elif event.is_action_pressed("right_hand_action") and cur_hovering_item != null\
-			and not player.is_hand_interract_in_cur_frame:
-		_on_pickup("right", cur_hovering_item)
-		player.right_held_item = cur_hovering_item
+	if event is InputEventMouseButton:
+		var clicked_cell_coords = get_cell_coords_by_position(event.position)
+		
+		if event.is_action_pressed("left_hand_action"):
+			pick_and_drop(clicked_cell_coords, Player.Hand.LEFT)
+		elif event.is_action_pressed("right_hand_action"):
+			pick_and_drop(clicked_cell_coords, Player.Hand.RIGHT)
 
-func drop_item(hand_container: Node2D, hand_item: Item):
-	var temp_dropping_pos = mouse_pos_item_drop_global_position()
-	var dropping_cell = tile_map.local_to_map(tile_map.to_local(temp_dropping_pos))
-	var ground_items = $WorldTileMap/Items.get_children()
-	print("tile - " + str(dropping_cell))
-	#swapping item on ground
-	var swapped_item: Item = null
-	for g_node in ground_items:
-		var g_item = g_node as Item
-		if g_item.world_tile_coord == dropping_cell:
-			swapped_item = g_item
-	print("swapping Item - " + str(swapped_item))
+func pick_and_drop(cell_coords: Vector2i, hand: Player.Hand) -> void:
+	# Only allow action in cels adjascent to the player
+	var distance_from_player = (cell_coords - player_cell_coords).abs()
+	if distance_from_player > Vector2i.ONE:
+		return
 	
-	if swapped_item != null:
-		print("Swap not null")
-		swapped_item.take_in_hand(hand_container)
+	# Only allow action if target cell can hold items
+	if not tile_map.cell_can_hold_items(cell_coords):
+		return
 	
-	hand_item.drop_on_the_ground(tile_map, dropping_cell)
+	var ground_item: Item = get_ground_item(cell_coords)
+	var item_from_hand: Item = player.take_item(ground_item, hand)
+	
+	if item_from_hand != null:
+		item_from_hand.drop_on_the_ground(tile_map, cell_coords)
+	
+	if ground_item != null and ground_item.item_name == "Raft":
+		get_tree().change_scene_to_file("res://Scenes/Levels/EndingEscape.tscn")
+		return
+	
+	trigger_new_turn()
 
-func mouse_pos_item_drop_global_position() -> Vector2:
-	var mouse_pos = get_viewport().get_mouse_position()
-	var mouse_dir = (mouse_pos - player.global_position).normalized()
-	
-	var triangulate_mouse_pos = mouse_dir.dot(Vector2(1,1).normalized())
-	var triangulate_mouse_neg = mouse_dir.dot(Vector2(1,-1).normalized())
-	
-	var dropping_direction
-	if triangulate_mouse_pos > 0 and triangulate_mouse_neg > 0:
-		dropping_direction = Vector2.RIGHT
-	if triangulate_mouse_pos <= 0 and triangulate_mouse_neg > 0:
-		dropping_direction = Vector2.UP
-	if triangulate_mouse_pos > 0 and triangulate_mouse_neg <= 0:
-		dropping_direction = Vector2.DOWN
-	if triangulate_mouse_pos <= 0 and triangulate_mouse_neg <= 0:
-		dropping_direction = Vector2.LEFT
-	
-	var dropping_pos =  (dropping_direction * tile_map.cell_quadrant_size)\
-			 + player.global_position 
-	
-	return dropping_pos
-
-func _on_pickup(event: String, item: Item) -> void:
-	#This code can only be ran if an item on the ground has been clicked
-	#  >> on to be picked up.
-	# Called from a signal in Item
-	print("picking up: " + item.item_name)
-	
-	if item.item_name == "Raft":
-		get_tree().change_scene_to_packed(ending_scene)
-	
-	if event == "left"\
-			 and not player.is_hand_interract_in_cur_frame:
-		if player.left_held_item == null:
-			player.is_hand_interract_in_cur_frame = true
-			item.take_in_hand(player.left_hand_placeholder)
-			
-	elif event == "right"\
-			and not player.is_hand_interract_in_cur_frame:
-		if player.right_held_item == null:
-			player.is_hand_interract_in_cur_frame = true
-			item.take_in_hand(player.right_hand_placeholder)
-			
-	#only connect to one item's pickup signal at a time
-	disconnect("pick_up", self._on_pickup)
-
-func prepare_new_turn(is_first_turn: bool) -> void:
+func trigger_new_turn(is_first_turn: bool = false) -> void:
 	# TODO: remove extinguished light sources
 	var old_lit_cells = lit_cells.duplicate()
 	calculate_lit_cells()
 	if not is_first_turn:
 		spawn_items(lit_cells, old_lit_cells)
+		despawn_items(lit_cells)
 	emit_signal("lit_cells_updated", lit_cells, old_lit_cells)
-	calculate_ingredients_for_crafting()
+	var ingredients_for_crafting = calculate_ingredients_for_crafting()
 	emit_signal("ingredients_for_crafting_updated", ingredients_for_crafting)
 		
 func calculate_lit_cells() -> void:
+	# TODO: This is wonky. The idea was to easily get all light sources and see where they are on the TileMap.
+	# But light source in player's hand can physically get on another tile from player, 
+	# so now the code goes through parent items.
+	# Find a more elegant solutuion.
+	
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
 	
 	lit_cells.clear()
 	for light_source in light_sources:
 		if light_source is LightSource:
-			var light_source_coords = calculate_tile_coords(light_source)
-			for light_shift in light_source.LightMap:
-				lit_cells[light_source_coords + light_shift] = true
+			var item = light_source.get_parent() as Item
+			if item != null:
+				var light_source_coords: Vector2i
+				if item.location == Item.Location.GROUND:
+					light_source_coords = item.ground_coordinates
+				else:
+					light_source_coords = player_cell_coords
+				
+				for light_shift in light_source.LightMap:
+					lit_cells[light_source_coords + light_shift] = true
 
 func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 	for cell_coords in new_lit_cells.keys():
 		var was_lit = old_lit_cells.has(cell_coords)
 		if not was_lit:
-			var tile_can_hold_items = tile_map.get_custom_data(tile_map.ground_layer, cell_coords, tile_map.custom_data_can_hold_items, false)
-			if tile_can_hold_items:
+			if tile_map.cell_can_hold_items(cell_coords):
 				var do_spawn = randi() % item_spawn_chance_in_turns == 0
 				if do_spawn:
 					var item_resource: Resource = spawning_items.pick_random()
-					var item: Item = await item_resource.instantiate()
-					add_child(item)
-					item.game_node = self
+					var item: Item = item_resource.instantiate()
 					item.drop_on_the_ground(tile_map, cell_coords)
-	# deleting items that are not lit anymore
-	for cell_coords in old_lit_cells.keys():
-		var is_lit = lit_cells.has(cell_coords)
-		if not is_lit:
-			for item in get_tree().get_nodes_in_group("items"):
-				var item_pos_x = tile_map.local_to_map(item.position).x
-				var item_pos_y = tile_map.local_to_map(item.position).y
-				var cell_pos_x = cell_coords.x
-				var cell_pos_y = cell_coords.y
-				if item_pos_x == cell_pos_x and item_pos_y == cell_pos_y:
-					item.queue_free()
-					
+
+func despawn_items(new_lit_cells: Dictionary) -> void:
+	for item in items_container.get_children():
+		if not new_lit_cells.has(item.ground_coordinates):
+			item.queue_free()
+
 func _on_please_place_rope():
-	var rope_resource: Resource = preload("res://Scenes/Items/Rope.tscn")
-	var rope: Item = await rope_resource.instantiate()
-	add_child(rope)
-	rope.game_node = self
-	rope.drop_on_the_ground(tile_map, Vector2i(tile_map.local_to_map(player.position).x, tile_map.local_to_map(player.position).y))
+	var rope: Item = rope_resource.instantiate()
+	rope.drop_on_the_ground(tile_map, player_cell_coords)
 
 func _on_please_place_raft():
-	var raft_resource: Resource = preload("res://Scenes/Items/Raft.tscn")
-	var raft: Item = await raft_resource.instantiate()
-	add_child(raft)
-	raft.game_node = self
-	raft.drop_on_the_ground(tile_map, Vector2i(tile_map.local_to_map(player.position).x, tile_map.local_to_map(player.position).y))
+	var raft: Item = raft_resource.instantiate()
+	raft.drop_on_the_ground(tile_map, player_cell_coords)
 
-func calculate_ingredients_for_crafting() -> void:
-	var all_items = get_tree().get_nodes_in_group("items")
-	ingredients_for_crafting.clear()
-	for item in all_items:
-		var player_pos_x = tile_map.local_to_map(player.position).x
-		var player_pos_y = tile_map.local_to_map(player.position).y
-		var item_pos_x = tile_map.local_to_map(item.position).x
-		var item_pos_y = tile_map.local_to_map(item.position).y
-		pass
-		# below if is for (theoretically) a cross around the player
-		#if (abs(player_pos_x - item_pos_x) + abs(player_pos_y - item_pos_y) < 2) \
-		# below if is for (theoretically) a 3x3 box around the player
-		if (abs(player_pos_x - item_pos_x) < 2 and abs(player_pos_y - item_pos_y) < 2) \
-		or item.location == item.Location.HAND:
-			ingredients_for_crafting.append(item)
+func calculate_ingredients_for_crafting() -> Array[Item]:
+	var ingredients_for_crafting: Array[Item] = []
+	
+	var ground_items = items_container.get_children()
+	for item in ground_items:
+		if item is Item \
+			and item.location == Item.Location.GROUND \
+			and calculate_distance_from_player(item.ground_coordinates) <= Vector2i.ONE:
+				ingredients_for_crafting.append(item)
+	
+	var left_hand_item = player.show_item(Player.Hand.LEFT)
+	if left_hand_item != null:
+		ingredients_for_crafting.append(left_hand_item)
+	var right_hand_item = player.show_item(Player.Hand.RIGHT)
+	if right_hand_item != null:
+		ingredients_for_crafting.append(right_hand_item)
 
-func calculate_tile_coords(object: Node2D) -> Vector2i:
-	return tile_map.local_to_map(tile_map.to_local(object.global_position))
+	return ingredients_for_crafting
 
+func get_object_cell_coords(object: Node2D) -> Vector2i:
+	return get_cell_coords_by_position(object.global_position)
+
+func get_cell_coords_by_position(position_value: Vector2) -> Vector2i:
+	return tile_map.local_to_map(tile_map.to_local(position_value))
+
+func get_ground_item(cell_coords: Vector2i) -> Item:
+	for item in items_container.get_children():
+		if item.ground_coordinates == cell_coords:
+			return item
+	return null
+
+func calculate_distance_from_player(cell_coords: Vector2i) -> Vector2i:
+	return (cell_coords - player_cell_coords).abs()

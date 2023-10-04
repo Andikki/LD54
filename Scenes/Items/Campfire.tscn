@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjuk4k2jlyhdr"]
+[gd_scene load_steps=10 format=3 uid="uid://cjuk4k2jlyhdr"]
 
-[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Prefabs/Item.tscn" id="1_1k674"]
-[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Prefabs/LightSource.tscn" id="1_n4pqc"]
+[ext_resource type="PackedScene" uid="uid://dfhf8umvl31el" path="res://Scenes/Items/Item.tscn" id="1_1k674"]
+[ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Items/LightSource.tscn" id="1_n4pqc"]
 [ext_resource type="Texture2D" uid="uid://cbrv7buhomowg" path="res://Assets/Sprites/Item/campfire.png" id="2_l2jfq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40yqh"]
+size = Vector2(26, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kr7fd"]
 atlas = ExtResource("2_l2jfq")
@@ -41,12 +44,21 @@ animations = [{
 }]
 
 [node name="Campfire" instance=ExtResource("1_1k674")]
-item_name = "CampFire"
+item_name = "Campfire"
+has_collision = true
 
 [node name="TileCentreAnchor" parent="." index="1"]
 position = Vector2(0, -6)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="0"]
+[node name="SpriteContainer" parent="." index="2"]
+position = Vector2(0, 6)
+
+[node name="CollisionShape2D" parent="SpriteContainer/StaticBody2D" index="0"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_40yqh")
+disabled = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="1"]
 position = Vector2(-1, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qn1kh")
@@ -54,7 +66,5 @@ autoplay = "default"
 frame = 3
 
 [node name="LightSource" parent="." index="3" instance=ExtResource("1_n4pqc")]
+position = Vector2(0, -2)
 LightMap = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
-
-[node name="CollisionShape2D" parent="ClickTargetArea" index="0"]
-position = Vector2(-1, -5)

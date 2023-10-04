@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfhf8umvl31el"]
+
+[ext_resource type="Script" path="res://Scenes/Items/Item.gd" id="1_yrv0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8emtm"]
+size = Vector2(4, 4)
+
+[node name="Item" type="Node2D" groups=["items"]]
+script = ExtResource("1_yrv0f")
+
+[node name="HandAnchor" type="Node2D" parent="."]
+
+[node name="TileCentreAnchor" type="Node2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="SpriteContainer" type="Node2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SpriteContainer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteContainer/StaticBody2D"]
+shape = SubResource("RectangleShape2D_8emtm")
+disabled = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bmcvyv2rmop1j" path="res://Assets/Sprites/TileSheets/water-01.png" id="1_3inqu"]
 [ext_resource type="Script" path="res://Scenes/Levels/EndingEscape.gd" id="1_r2skl"]
-[ext_resource type="PackedScene" uid="uid://dhfbd6ixntrna" path="res://Scenes/Prefabs/Credits.tscn" id="2_1xv61"]
+[ext_resource type="PackedScene" uid="uid://dhfbd6ixntrna" path="res://Scenes/UI/Credits.tscn" id="2_1xv61"]
 [ext_resource type="Texture2D" uid="uid://c5tote57n2mwj" path="res://Assets/Sprites/Item/raft.png" id="2_35ukh"]
 [ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="3_mi85o"]
 [ext_resource type="Texture2D" uid="uid://3dy38rdre76h" path="res://Assets/Images/PinkButton.png" id="5_wrvbm"]
