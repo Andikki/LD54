@@ -11,18 +11,13 @@ height = 36.0
 item_name = "Raft"
 has_collision = true
 
-[node name="TileCentreAnchor" parent="." index="1"]
-position = Vector2(0, -12)
-
-[node name="SpriteContainer" parent="." index="2"]
+[node name="HandAnchor" parent="." index="0"]
 position = Vector2(0, 12)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" index="0"]
-position = Vector2(0, -12)
 texture = ExtResource("2_jykrc")
 
 [node name="CollisionShape2D" parent="SpriteContainer/StaticBody2D" index="0"]
-position = Vector2(0, -11.5)
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_n6voh")
 disabled = false

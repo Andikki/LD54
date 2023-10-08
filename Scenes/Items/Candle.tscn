@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ge52ycybilfq" path="res://Scenes/Items/LightSource.tscn" id="3_al3mi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uc0rd"]
-size = Vector2(10, 12)
+size = Vector2(5, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgoja"]
 atlas = ExtResource("2_dj773")
@@ -46,24 +46,19 @@ animations = [{
 [node name="Candle" instance=ExtResource("1_0lvni")]
 item_name = "Candle"
 
-[node name="TileCentreAnchor" parent="." index="1"]
-position = Vector2(0, -7)
-
-[node name="SpriteContainer" parent="." index="2"]
-position = Vector2(0, 7)
+[node name="HandAnchor" parent="." index="0"]
+position = Vector2(0, 3)
 
 [node name="CollisionShape2D" parent="SpriteContainer/StaticBody2D" index="0"]
-position = Vector2(0, -6)
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_uc0rd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteContainer" index="1"]
-position = Vector2(1, -10)
-scale = Vector2(2, 2)
+position = Vector2(1, -2)
 sprite_frames = SubResource("SpriteFrames_t5uvj")
 autoplay = "default"
 frame = 2
 frame_progress = 0.918936
 
 [node name="LightSource" parent="." index="3" instance=ExtResource("3_al3mi")]
-position = Vector2(0, 7)
 LightMap = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])

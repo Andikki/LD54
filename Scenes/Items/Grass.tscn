@@ -10,13 +10,13 @@ height = 15.0
 [node name="Item" instance=ExtResource("1_tpijk")]
 item_name = "Grass"
 
-[node name="TileCentreAnchor" parent="." index="1"]
-position = Vector2(0, -4)
+[node name="HandAnchor" parent="." index="0"]
+position = Vector2(0, 7)
 
 [node name="CollisionShape2D" parent="SpriteContainer/StaticBody2D" index="0"]
-position = Vector2(-0.5, -7.5)
+position = Vector2(0, -0.5)
 shape = SubResource("CapsuleShape2D_6av37")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" index="1"]
-position = Vector2(0, -8)
+position = Vector2(0, -1)
 texture = ExtResource("2_oi8sn")

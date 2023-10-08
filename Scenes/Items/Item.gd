@@ -6,6 +6,7 @@ enum Location {GROUND, HAND}
 
 @export_category("Item Properties")
 @export var item_name: String
+
 @export var location: Location = Location.GROUND:
 	get:
 		return location
@@ -13,7 +14,14 @@ enum Location {GROUND, HAND}
 		location = value
 		adjust_sprite_position()
 		update_collision()
-@export var has_collision: bool = false
+
+@export var has_collision: bool = false:
+	get:
+		return has_collision
+	set(value): 
+		has_collision = value
+		update_collision()
+
 @export var ground_coordinates: Vector2i
 
 @onready var collision_shape: CollisionShape2D = $SpriteContainer/StaticBody2D/CollisionShape2D
@@ -27,9 +35,9 @@ func update_collision() -> void:
 
 func adjust_sprite_position() -> void:
 	if location == Location.GROUND:
-		$SpriteContainer.position = $HandAnchor.position + ($HandAnchor.position - $TileCentreAnchor.position)
+		$SpriteContainer.position = Vector2.ZERO
 	elif  location == Location.HAND:
-		$SpriteContainer.position = $HandAnchor.position
+		$SpriteContainer.position = - $HandAnchor.position
 
 func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
 	ground_coordinates = cell_coords

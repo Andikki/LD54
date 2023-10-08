@@ -309,12 +309,13 @@ position = Vector2(0, -16)
 texture = ExtResource("2_2ty6n")
 hframes = 2
 vframes = 8
+frame = 1
 
 [node name="LeftHand" type="Node2D" parent="."]
-position = Vector2(-14, -11)
+position = Vector2(-12, -11)
 
 [node name="RightHand" type="Node2D" parent="."]
-position = Vector2(14, -11)
+position = Vector2(12, -11)
 
 [node name="Candle" parent="RightHand" instance=ExtResource("4_douk0")]
 location = 1
