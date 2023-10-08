@@ -10,6 +10,7 @@ height = 36.0
 [node name="Item" instance=ExtResource("1_7wb4b")]
 item_name = "Raft"
 has_collision = true
+cell_coordinates = null
 
 [node name="HandAnchor" parent="." index="0"]
 position = Vector2(0, 12)

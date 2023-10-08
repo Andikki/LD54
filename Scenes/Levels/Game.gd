@@ -23,24 +23,24 @@ var raft_resource: Resource = preload("res://Scenes/Items/Raft.tscn")
 
 # Variables
 var lit_cells: Dictionary = {}
-var player_cell_coords: Vector2i
+var player_cell_coordinates := Vector2i.ZERO
 
 func _ready() -> void:
 	randomize()
 	
-	player_cell_coords = get_object_cell_coords(player)
+	player_cell_coordinates = get_object_cell_coords(player)
 	
 	for item in items_container.get_children():
-		item.ground_coordinates = get_object_cell_coords(item)
-		item.position = tile_map.map_to_local(item.ground_coordinates)
+		item.cell_coordinates = get_object_cell_coords(item)
+		item.position = tile_map.map_to_local(item.cell_coordinates)
 		
 	trigger_new_turn(true)
 
 func _process(_delta: float) -> void:	
 	# Detect new turn (player moved to a new tile)
-	var previous_player_cell_coords = player_cell_coords
-	player_cell_coords = get_object_cell_coords(player)
-	if previous_player_cell_coords != player_cell_coords:
+	var previous_player_cell_coordinates = player_cell_coordinates
+	player_cell_coordinates = get_object_cell_coords(player)
+	if previous_player_cell_coordinates != player_cell_coordinates:
 		trigger_new_turn()
 
 func _unhandled_input(event):
@@ -54,7 +54,7 @@ func _unhandled_input(event):
 
 func pick_and_drop(cell_coords: Vector2i, hand: Player.Hand) -> void:
 	# Only allow action in cels adjascent to the player
-	var distance_from_player = (cell_coords - player_cell_coords).abs()
+	var distance_from_player = (cell_coords - player_cell_coordinates).abs()
 	if distance_from_player > Vector2i.ONE:
 		return
 	
@@ -62,17 +62,26 @@ func pick_and_drop(cell_coords: Vector2i, hand: Player.Hand) -> void:
 	if not tile_map.cell_can_hold_items(cell_coords):
 		return
 	
-	var ground_item: Item = get_ground_item(cell_coords)
-	var item_from_hand: Item = player.take_item(ground_item, hand)
+	var item_from_ground: Item = remove_item_from_ground(cell_coords)
+	var item_from_hand: Item = player.remove_item_from_hand(hand)
+	
+	if item_from_ground != null:
+		item_from_ground.take_in_hand(player, hand)
 	
 	if item_from_hand != null:
 		item_from_hand.drop_on_the_ground(tile_map, cell_coords)
 	
-	if ground_item != null and ground_item.item_name == "Raft":
+	if item_from_ground != null and item_from_ground.item_name == "Raft":
 		get_tree().change_scene_to_file("res://Scenes/Levels/EndingEscape.tscn")
 		return
 	
 	trigger_new_turn()
+
+func remove_item_from_ground(cell_coords: Vector2i) -> Item:
+	var item = get_ground_item(cell_coords)
+	if item != null:
+		items_container.remove_child(item)
+	return item
 
 func trigger_new_turn(is_first_turn: bool = false) -> void:
 	# TODO: remove extinguished light sources
@@ -86,26 +95,12 @@ func trigger_new_turn(is_first_turn: bool = false) -> void:
 	emit_signal("ingredients_for_crafting_updated", ingredients_for_crafting)
 		
 func calculate_lit_cells() -> void:
-	# TODO: This is wonky. The idea was to easily get all light sources and see where they are on the TileMap.
-	# But light source in player's hand can physically get on another tile from player, 
-	# so now the code goes through parent items.
-	# Find a more elegant solutuion.
-	
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
 	
 	lit_cells.clear()
 	for light_source in light_sources:
 		if light_source is LightSource:
-			var item = light_source.get_parent() as Item
-			if item != null:
-				var light_source_coords: Vector2i
-				if item.location == Item.Location.GROUND:
-					light_source_coords = item.ground_coordinates
-				else:
-					light_source_coords = player_cell_coords
-				
-				for light_shift in light_source.LightMap:
-					lit_cells[light_source_coords + light_shift] = true
+			light_source.add_to_lit_cells(lit_cells)
 
 func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 	for cell_coords in new_lit_cells.keys():
@@ -120,16 +115,16 @@ func spawn_items(new_lit_cells: Dictionary, old_lit_cells: Dictionary) -> void:
 
 func despawn_items(new_lit_cells: Dictionary) -> void:
 	for item in items_container.get_children():
-		if not new_lit_cells.has(item.ground_coordinates):
+		if not new_lit_cells.has(item.cell_coordinates):
 			item.queue_free()
 
 func _on_please_place_rope():
 	var rope: Item = rope_resource.instantiate()
-	rope.drop_on_the_ground(tile_map, player_cell_coords)
+	rope.drop_on_the_ground(tile_map, player_cell_coordinates)
 
 func _on_please_place_raft():
 	var raft: Item = raft_resource.instantiate()
-	raft.drop_on_the_ground(tile_map, player_cell_coords)
+	raft.drop_on_the_ground(tile_map, player_cell_coordinates)
 
 func calculate_ingredients_for_crafting() -> Array[Item]:
 	var ingredients_for_crafting: Array[Item] = []
@@ -138,7 +133,7 @@ func calculate_ingredients_for_crafting() -> Array[Item]:
 	for item in ground_items:
 		if item is Item \
 			and item.location == Item.Location.GROUND \
-			and calculate_distance_from_player(item.ground_coordinates) <= Vector2i.ONE:
+			and calculate_distance_from_player(item.cell_coordinates) <= Vector2i.ONE:
 				ingredients_for_crafting.append(item)
 	
 	var left_hand_item = player.show_item(Player.Hand.LEFT)
@@ -158,9 +153,9 @@ func get_cell_coords_by_position(position_value: Vector2) -> Vector2i:
 
 func get_ground_item(cell_coords: Vector2i) -> Item:
 	for item in items_container.get_children():
-		if item.ground_coordinates == cell_coords:
+		if item is Item and item.cell_coordinates == cell_coords:
 			return item
 	return null
 
 func calculate_distance_from_player(cell_coords: Vector2i) -> Vector2i:
-	return (cell_coords - player_cell_coords).abs()
+	return (cell_coords - player_cell_coordinates).abs()

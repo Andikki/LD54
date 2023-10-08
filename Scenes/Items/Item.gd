@@ -22,7 +22,7 @@ enum Location {GROUND, HAND}
 		has_collision = value
 		update_collision()
 
-@export var ground_coordinates: Vector2i
+@export var cell_coordinates: Vector2i
 
 @onready var collision_shape: CollisionShape2D = $SpriteContainer/StaticBody2D/CollisionShape2D
 
@@ -40,18 +40,27 @@ func adjust_sprite_position() -> void:
 		$SpriteContainer.position = - $HandAnchor.position
 
 func drop_on_the_ground(tile_map: WorldTileMap, cell_coords: Vector2i) -> void:
-	ground_coordinates = cell_coords
+	cell_coordinates = cell_coords
 	location = Location.GROUND
+	
 	var items_node = tile_map.get_node("Items")
-	# TODO: maybe remove item from hand and thus always have it unparented?
+	
 	if get_parent() == null:
 		items_node.add_child(self)
 	else:
 		self.reparent(items_node)
+		
 	position = tile_map.map_to_local(cell_coords)
 
-func take_in_hand(hand_node: Node2D) -> void:
-	ground_coordinates = Vector2i.ZERO
+func take_in_hand(player: Player, hand: Player.Hand) -> void:
+	cell_coordinates = Vector2i.ZERO
 	location = Location.HAND
-	self.reparent(hand_node)
+	
+	var hand_node = player.get_hand_node(hand)
+	
+	if get_parent() == null:
+		hand_node.add_child(self)
+	else:
+		self.reparent(hand_node)
+	
 	position = Vector2.ZERO

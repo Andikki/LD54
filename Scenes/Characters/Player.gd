@@ -30,22 +30,21 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 
-## If the player is currently holding anything in this hand, returns held item.
-## The caller needs to move returned item elsewhere,
-## otherwise the player will end up holding two items in one hand.
-## Passed item can also be null, then this function will just return held item.
-func take_item(item: Item, hand: Hand) -> Item:
-	var held_item: Item = show_item(hand)
+func get_hand_node(hand: Hand) -> Node2D:
+	return left_hand_node if hand == Hand.LEFT else right_hand_node
 
-	if item != null:
-		var hand_node: Node2D = left_hand_node if hand == Hand.LEFT else right_hand_node
-		item.take_in_hand(hand_node)
-	
-	return held_item
+func remove_item_from_hand(hand: Hand) -> Item:
+	var hand_node: Node2D = get_hand_node(hand)
+	if hand_node.get_child_count() > 0:
+		var item = hand_node.get_child(0)
+		if item is Item:
+			hand_node.remove_child(item)
+			return item
+	return null
 
 func show_item(hand: Hand) -> Item:
-	var hand_node: Node2D = left_hand_node if hand == Hand.LEFT else right_hand_node
-	return null if hand_node.get_child_count() == 0 else hand_node.get_child(0)
+	var hand_node: Node2D = get_hand_node(hand)
+	return null if hand_node.get_child_count() == 0 else hand_node.get_child(0) as Item
 
 func update_animation_parameters(move_direction: Vector2) -> void:
 	if move_direction != Vector2.ZERO:

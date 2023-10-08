@@ -7,6 +7,7 @@ size = Vector2(4, 4)
 
 [node name="Item" type="Node2D" groups=["items"]]
 script = ExtResource("1_yrv0f")
+cell_coordinates = null
 
 [node name="HandAnchor" type="Node2D" parent="."]
 position = Vector2(0, 8)
