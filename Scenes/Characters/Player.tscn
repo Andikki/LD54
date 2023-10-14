@@ -318,3 +318,4 @@ position = Vector2(12, -11)
 
 [node name="Candle" parent="RightHand" instance=ExtResource("4_douk0")]
 location = 1
+cell_coordinates = Vector2i(0, 0)

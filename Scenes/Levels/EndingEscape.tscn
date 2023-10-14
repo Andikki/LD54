@@ -30,7 +30,7 @@ _data = {
 "Swim": SubResource("Animation_6xhpu")
 }
 
-[node name="Control" type="Control"]
+[node name="EndingEscape" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r2skl")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,7 +110,7 @@ text = "To title"
 icon = ExtResource("5_wrvbm")
 icon_alignment = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_3f0at")
 autoplay = true
 bus = &"Music"
