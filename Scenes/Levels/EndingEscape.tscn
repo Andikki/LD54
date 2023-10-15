@@ -15,7 +15,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerPivot/PlayerIllustration:position")
+tracks/0/path = NodePath("MarginContainer/PlayerPivot/PlayerIllustration:position")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,40 +49,47 @@ grow_vertical = 2
 texture = ExtResource("1_3inqu")
 stretch_mode = 1
 
-[node name="EndingText" type="RichTextLabel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 400.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndingText" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
 text = "I have escaped the Darkness.
 That's good, right?
 There's nothing there that I'll miss..."
 fit_content = true
 
-[node name="Credits" parent="." instance=ExtResource("2_1xv61")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -150.0
-offset_bottom = -20.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 
-[node name="PlayerPivot" type="Node2D" parent="."]
+[node name="Credits" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_1xv61")]
+layout_mode = 2
+
+[node name="ToTitleButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "To title"
+icon = ExtResource("5_wrvbm")
+icon_alignment = 1
+
+[node name="PlayerPivot" type="Node2D" parent="MarginContainer"]
 position = Vector2(304, 336)
 
-[node name="PlayerIllustration" type="Node2D" parent="PlayerPivot"]
+[node name="PlayerIllustration" type="Node2D" parent="MarginContainer/PlayerPivot"]
 
-[node name="Raft" type="Sprite2D" parent="PlayerPivot/PlayerIllustration"]
+[node name="Raft" type="Sprite2D" parent="MarginContainer/PlayerPivot/PlayerIllustration"]
 scale = Vector2(4, 4)
 texture = ExtResource("2_35ukh")
 
-[node name="Player" type="Sprite2D" parent="PlayerPivot/PlayerIllustration"]
+[node name="Player" type="Sprite2D" parent="MarginContainer/PlayerPivot/PlayerIllustration"]
 position = Vector2(0, -64)
 scale = Vector2(4, 4)
 texture = ExtResource("3_mi85o")
@@ -95,24 +102,9 @@ libraries = {
 "": SubResource("AnimationLibrary_tif6a")
 }
 
-[node name="ToTitleButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -20.0
-offset_bottom = -20.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "To title"
-icon = ExtResource("5_wrvbm")
-icon_alignment = 1
-
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_3f0at")
 autoplay = true
 bus = &"Music"
 
-[connection signal="pressed" from="ToTitleButton" to="." method="_on_to_title_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ToTitleButton" to="." method="_on_to_title_button_pressed"]
