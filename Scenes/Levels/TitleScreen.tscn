@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://boagvfsrwa0cu"]
+[gd_scene load_steps=9 format=3 uid="uid://boagvfsrwa0cu"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/TitleScreen.gd" id="1_kcxyx"]
+[ext_resource type="Theme" uid="uid://c6ucxi0mv5buf" path="res://Assets/Themes/LargerTheme.tres" id="1_lokvt"]
 [ext_resource type="PackedScene" uid="uid://dmcn5g0fbiyey" path="res://Scenes/Levels/Game.tscn" id="2_cbm5b"]
 [ext_resource type="AudioStream" uid="uid://wi3x3sjlmj7m" path="res://Assets/Music/SplashScreen_Insignificant_Delicacy.wav" id="3_0np5k"]
 [ext_resource type="Texture2D" uid="uid://bdqowa6lfmlad" path="res://Assets/Images/Title - purple.png" id="3_j4tuw"]
 [ext_resource type="Texture2D" uid="uid://3dy38rdre76h" path="res://Assets/Images/PinkButton.png" id="4_2ksik"]
+
+[sub_resource type="FontVariation" id="FontVariation_5q6fg"]
+
+[sub_resource type="FontVariation" id="FontVariation_4d4oi"]
+variation_opentype = {
+2003265652: 700
+}
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -13,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lokvt")
 script = ExtResource("1_kcxyx")
 game_scene = ExtResource("2_cbm5b")
 
@@ -32,24 +41,65 @@ offset_bottom = 512.0
 texture = ExtResource("3_j4tuw")
 stretch_mode = 2
 
-[node name="StartButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -20.0
-offset_bottom = -20.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Go On Then"
-icon = ExtResource("4_2ksik")
-icon_alignment = 1
-
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0np5k")
 autoplay = true
 bus = &"Music"
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="MarginContainer/GameButtons"]
+layout_mode = 2
+text = "Go On Then"
+icon = ExtResource("4_2ksik")
+icon_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/GameButtons"]
+layout_mode = 2
+text = "Something Else"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.78692
+anchor_top = 0.529081
+anchor_right = 0.78692
+anchor_bottom = 0.529081
+offset_right = 40.0
+offset_bottom = 20.0
+text = "Hello,
+**Darkness**"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -2.08745
+anchor_right = 0.0506329
+anchor_bottom = -2.05368
+offset_left = 746.0
+offset_top = 1256.61
+offset_right = 874.0
+offset_bottom = 1316.61
+theme_override_fonts/normal_font = SubResource("FontVariation_5q6fg")
+theme_override_fonts/bold_font = SubResource("FontVariation_4d4oi")
+bbcode_enabled = true
+text = "Hello,
+[b]Darkness[/b]"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="MarginContainer/GameButtons/StartButton" to="." method="_on_start_button_pressed"]
