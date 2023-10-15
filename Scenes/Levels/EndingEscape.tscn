@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://wk55rhmtfok4"]
+[gd_scene load_steps=11 format=3 uid="uid://wk55rhmtfok4"]
 
+[ext_resource type="Theme" uid="uid://c6ucxi0mv5buf" path="res://Assets/Themes/LargerTheme.tres" id="1_0oq4h"]
 [ext_resource type="Texture2D" uid="uid://bmcvyv2rmop1j" path="res://Assets/Sprites/TileSheets/water-01.png" id="1_3inqu"]
 [ext_resource type="Script" path="res://Scenes/Levels/EndingEscape.gd" id="1_r2skl"]
 [ext_resource type="PackedScene" uid="uid://dhfbd6ixntrna" path="res://Scenes/UI/Credits.tscn" id="2_1xv61"]
 [ext_resource type="Texture2D" uid="uid://c5tote57n2mwj" path="res://Assets/Sprites/Item/raft.png" id="2_35ukh"]
 [ext_resource type="Texture2D" uid="uid://c2oyo0153i8f1" path="res://Assets/Sprites/Characters/player.png" id="3_mi85o"]
-[ext_resource type="Texture2D" uid="uid://3dy38rdre76h" path="res://Assets/Images/PinkButton.png" id="5_wrvbm"]
 [ext_resource type="AudioStream" uid="uid://wi3x3sjlmj7m" path="res://Assets/Music/SplashScreen_Insignificant_Delicacy.wav" id="7_3f0at"]
+
+[sub_resource type="Theme" id="Theme_2lbmc"]
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_6xhpu"]
 resource_name = "Swim"
@@ -37,6 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_2lbmc")
 script = ExtResource("1_r2skl")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -76,8 +80,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme = ExtResource("1_0oq4h")
 text = "To title"
-icon = ExtResource("5_wrvbm")
 icon_alignment = 1
 
 [node name="PlayerPivot" type="Node2D" parent="MarginContainer"]

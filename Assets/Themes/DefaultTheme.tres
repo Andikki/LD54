@@ -79,3 +79,4 @@ MarginContainer/constants/margin_left = 40
 MarginContainer/constants/margin_right = 40
 MarginContainer/constants/margin_top = 40
 Panel/styles/panel = SubResource("StyleBoxFlat_qwv6g")
+RichTextLabel/colors/default_color = Color(0.772549, 0.8, 0.721569, 1)
