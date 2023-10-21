@@ -90,10 +90,10 @@ func trigger_new_turn(is_first_turn: bool = false) -> void:
 	if not is_first_turn:
 		spawn_items(lit_cells, old_lit_cells)
 		despawn_items(lit_cells)
-	emit_signal("lit_cells_updated", lit_cells, old_lit_cells)
+	lit_cells_updated.emit(lit_cells, old_lit_cells)
 	var ingredients_for_crafting = calculate_ingredients_for_crafting()
-	emit_signal("ingredients_for_crafting_updated", ingredients_for_crafting)
-		
+	ingredients_for_crafting_updated.emit(ingredients_for_crafting)
+
 func calculate_lit_cells() -> void:
 	var light_sources: Array[Node] = get_tree().get_nodes_in_group("light")
 	

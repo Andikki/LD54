@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://boagvfsrwa0cu"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/TitleScreen.gd" id="1_kcxyx"]
+[ext_resource type="Theme" uid="uid://c6ucxi0mv5buf" path="res://Assets/Themes/LargerTheme.tres" id="1_lokvt"]
+[ext_resource type="PackedScene" uid="uid://dmcn5g0fbiyey" path="res://Scenes/Levels/Game.tscn" id="2_cbm5b"]
+[ext_resource type="AudioStream" uid="uid://wi3x3sjlmj7m" path="res://Assets/Music/SplashScreen_Insignificant_Delicacy.wav" id="3_0np5k"]
+[ext_resource type="Texture2D" uid="uid://bdqowa6lfmlad" path="res://Assets/Images/Title - purple.png" id="3_j4tuw"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lokvt")
+script = ExtResource("1_kcxyx")
+game_scene = ExtResource("2_cbm5b")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129412, 0.101961, 0.164706, 1)
+
+[node name="TitleImage" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 640.0
+offset_bottom = 512.0
+texture = ExtResource("3_j4tuw")
+stretch_mode = 2
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0np5k")
+autoplay = true
+bus = &"Music"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="MarginContainer/GameButtons"]
+layout_mode = 2
+text = "Go On Then"
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="MarginContainer/GameButtons"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/GameButtons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/GameButtons/QuitButton" to="." method="_on_quit_button_pressed"]

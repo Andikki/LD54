@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="LD54"
-run/main_scene="res://Scenes/Levels/SplashScreen.tscn"
+run/main_scene="res://Scenes/Levels/TitleScreen.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://Assets/Images/icon.png"
+
+[audio]
+
+buses/default_bus_layout="res://Assets/Music/DefaultAudioBusLayout.tres"
 
 [display]
 
@@ -25,6 +29,10 @@ window/stretch/mode="canvas_items"
 
 import/blender/enabled=false
 import/fbx/enabled=false
+
+[gui]
+
+theme/custom="res://Assets/Themes/DefaultTheme.tres"
 
 [input]
 
